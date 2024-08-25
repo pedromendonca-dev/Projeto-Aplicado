@@ -7,6 +7,12 @@ type Theme = typeof theme
 interface ThemeColors {
 	white: string
 	black: string
+	green: {
+		'100': string
+	}
+	gray: {
+		'100': string
+	}
 }
 
 interface ThemeSpace {

@@ -2,7 +2,13 @@ import { DefaultTheme } from 'styled-components'
 
 const colors = {
 	white: '#ffffff',
-    black: '#000000'
+    black: '#000000',
+	green: {
+		100: '#4CAF50'
+	},
+	gray: {
+		100: 'C4C4C4'
+	}
 }
 
 const space = {
