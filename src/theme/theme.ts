@@ -7,7 +7,8 @@ const colors = {
 		100: '#4CAF50'
 	},
 	gray: {
-		100: 'C4C4C4'
+		100: 'C4C4C4',
+		200: '7F7F7F'
 	}
 }
 

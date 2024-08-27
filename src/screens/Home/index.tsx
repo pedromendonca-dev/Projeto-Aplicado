@@ -1,7 +1,12 @@
-import { Column } from "@/components";
+import { Column, TextField } from "@/components";
 
 export const Home = () => (
     <Column>
-        <h1>Oi, mundo!</h1>
+
+        <TextField
+            label = "Serviços"
+            inputProps={{placeholder:"Digite seu nome"}}
+        />
+
     </Column>
 )
