@@ -9,5 +9,6 @@ export const GlobalStyle = createGlobalStyle`
 
     body, input, button, label{
         font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.5px;
     }
-`
+`;
