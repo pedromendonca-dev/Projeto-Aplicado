@@ -1,12 +1,8 @@
-import { Column, TextField } from "@/components";
+import { Column, SideNavbar, TextField } from "@/components";
 
 export const Home = () => (
     <Column>
-
-        <TextField
-            label = "Serviços"
-            inputProps={{placeholder:"Digite seu nome"}}
-        />
+      <SideNavbar />
 
     </Column>
 )
