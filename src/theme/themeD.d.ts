@@ -12,6 +12,7 @@ interface ThemeColors {
 	}
 	gray: {
 		'100': string
+		'200': string
 	}
 }
 
