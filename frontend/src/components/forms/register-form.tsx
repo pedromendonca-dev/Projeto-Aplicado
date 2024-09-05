@@ -48,7 +48,7 @@ const RegisterForm = () => {
           </Typography>
         </Column>
         <Form onSubmit={handleSubmit(registerSubmit)}>
-          <Column height="100%" justifyContent="space-between">
+          <Column height="100%">
             <TextField label="Nome" sx={{ mb: 2 }} {...register("name")} />
             <TextField
               label="Email"
