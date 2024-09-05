@@ -1,18 +1,28 @@
 import styled, { css } from "styled-components";
 
-interface ButtonProps {
+import { decoration, display } from "@/lib/utils/styled";
+import { DecorationProps, DisplayProps } from "@/lib/interface/styled";
+
+interface ButtonProps extends DecorationProps, DisplayProps {
   variant?: string;
 }
 
 export const Button = styled.button<ButtonProps>(
   ({ theme, variant = "default" }) => css`
     height: 50px;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    font-size: 12px;
+    cursor: pointer;
+    font-size: 14px;
     font-weight: 600;
 
     border-radius: 4px;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
 
     &:focus {
       outline: none;
@@ -26,13 +36,16 @@ export const Button = styled.button<ButtonProps>(
 
     ${variant === "google" &&
     css`
-      font-size: 12px;
-      font-weight: 600;
-
       border: 1px solid ${theme.colors.black};
 
       color: ${theme.colors.black};
       background-color: ${theme.colors.white};
+
+      img {
+        margin-right: ${theme.space.s2};
+      }
     `}
-  `
+  `,
+  decoration,
+  display
 );
