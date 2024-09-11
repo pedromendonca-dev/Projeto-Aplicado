@@ -28,7 +28,7 @@ const names = [
 function getStyles(name: string, personName: string[], theme: Theme) {
   return {
     fontSize:
-        theme.typography.fontSize * 0.8,
+        theme.typography.fontSize * 1,
     fontWeight:
       personName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
@@ -53,7 +53,7 @@ export default function MultipleSelect() {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 230 }}>
-        <InputLabel id="demo-multiple-name-label" sx={{ fontSize: '12px', fontWeight: 'bold'}}>Filtro:</InputLabel>
+        <InputLabel id="demo-multiple-name-label" sx={{ fontSize: '12px', fontWeight: '800'}}>Filtro:</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           sx={{ fontSize: '12px'}}

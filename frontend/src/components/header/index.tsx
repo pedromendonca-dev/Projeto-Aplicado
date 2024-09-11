@@ -36,7 +36,7 @@ const HeaderContainer = styled.div(
     display: flex;
     align-items: center;
     flex-direction: column;
-    overflow: hidden;
+    z-index: 2;
 
     top: 0;
     margin-left: 300px;
@@ -48,25 +48,26 @@ const HeaderContainer = styled.div(
 
     color: ${theme.colors.black};
     background-color: ${theme.colors.white};
-    box-shadow: 0px 2px 1px rgb(216,216,216);
-
+    box-shadow: 0px 1.5px 1px rgb(216,216,216);
 
   `
 );
 
-const HeaderTitle = styled.p(
+const HeaderTitle = styled.h1(
   ({ theme }) => css`
     position: absolute;
     bottom: 0;
     left: 0;
 
-    margin-left: ${theme.space.s5};
+    margin-left: ${theme.space.s6};
     margin-bottom: ${theme.space.s4};
 
     text-align: left;
     color: ${theme.colors.black};
-    font-size: ${theme.space.s5};
-    font-weight: bold;
+    font-size: 20px;
+
+    font-weight: 600;
+    letter-spacing: 0px;
   `
 );
 
@@ -101,17 +102,19 @@ const AvatarNome = styled.p(
 
   font-size: ${theme.space.s3};
   color: ${theme.colors.black};
-  font-weight: bold;
+
+  font-weight: 600;
+  letter-spacing: 0px;
   
   `
 );
 
 const AvatarEmail = styled.p(
   ( { theme } ) => css`
-  padding: ${theme.space.s1};
   
   font-size: ${theme.space.s2};
   color: ${theme.colors.black};
+  margin-left: ${theme.space.s1};
   `
 );
 
@@ -123,6 +126,7 @@ const SelectorDiv = styled.div(
 
  margin-right: ${theme.space.s7};
  margin-bottom: ${theme.space.s2};
+ font-weight: 200;
  
  `
 )
