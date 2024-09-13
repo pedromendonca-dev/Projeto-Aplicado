@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 
 
 
-
+// COLOCAR EM OUTRO ARQUIVO DEPOIS...
 
 const Categorias = [
     {
@@ -84,9 +84,12 @@ const CardCollectorDiv = styled.div(
  ({ theme }) => css`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
     gap: 28px 28px; 
+    
     max-width: calc(100% - 50px);
     max-height: 380px;
+
     margin-left: ${theme.space.s8};
     margin-top: ${theme.space.s7};
  `
@@ -96,16 +99,34 @@ const Cards = styled.div(
  ( { theme }) => css`
     display: flex;
     flex-direction: column;
+
     background-color: ${theme.colors.white};
+
     width: 250px;
     height: 165px;
+
     border-radius: 9.5px;
     border-width: 1px;
     border-color: #C5C5C5;
     border-style: solid;
+    z-index: 2;
 
     justify-content: center;
     box-sizing: border-box;
+
+    &:hover, &:active {
+        cursor: pointer;
+        background-color: #000000;
+        color: #ffffff;
+        transform: translateY(-3%);
+        -webkit-transition: transform 0.5s ease-out;
+        -o-transition: transform 0.5s ease-out;
+        transition: transform 0.5s ease-out;
+
+        box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+    }
+
+    
  `
 )
 
@@ -117,7 +138,7 @@ const CardName = styled.p(
 
     line-height: 18px;
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 400;
 
     margin-left: 5px;
     letter-spacing: 0px;
