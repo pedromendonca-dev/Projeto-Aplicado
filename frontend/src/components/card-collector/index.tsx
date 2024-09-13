@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import styled, { css } from "styled-components";
-import TesteImage from "@/assets/images/jardinagem.jpeg";
-import { string } from "zod";
+
 
 
 
@@ -11,27 +10,27 @@ import { string } from "zod";
 const Categorias = [
     {
         nome: "Limpeza Residencial",
-        src: {TesteImage} 
+        src: "/images/limpeza-residencial.png"
     },
     {
         nome: "Jardinagem e Paisagismo",
-        src: ""
+        src: "/images/jardinagem.png"
     },
     {
         nome: "Construção e Reforma",
-        src: ""
+        src: "/images/construcao.png"
     },
     {
         nome: "Serviços de Mudança",
-        src: ""
+        src: "/images/mudanca.png"
     },
     {
         nome: "Reparo elétrico",
-        src: ""
+        src: "/images/eletrico.png"
     },
     {
         nome: "Limpeza de Piscinas",
-        src: ""
+        src: "/images/piscina.png"
     },
 ]
 
@@ -46,12 +45,11 @@ const CardCollector = () => (
         {Categorias.map((categoria, indice ) => (
             <Cards key={indice}>
                 <Image 
-                src={TesteImage} 
+                src={categoria.src} 
                 alt="imagem"
-                layout="intrinsic"
-                width={250} 
-                height={120}
-                style={{ borderRadius: '8px 8px 0px 0px', overflow: "hidden"}} 
+                width={249} 
+                height={119}
+                style={{ borderRadius: '8px 8px 0px 0px', overflow: "hidden", filter: 'brightness(0.6)'}} 
                 />
                 <CardName>{categoria.nome}</CardName>
             </Cards>
@@ -87,8 +85,8 @@ const CardCollectorDiv = styled.div(
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 28px 28px; 
-    max-width: 100%;
-    max-height: 400px;
+    max-width: calc(100% - 50px);
+    max-height: 380px;
     margin-left: ${theme.space.s8};
     margin-top: ${theme.space.s7};
  `
@@ -101,8 +99,8 @@ const Cards = styled.div(
     background-color: ${theme.colors.white};
     width: 250px;
     height: 165px;
-    border-radius: 8px;
-    border-width: 0.8px;
+    border-radius: 9.5px;
+    border-width: 1px;
     border-color: #C5C5C5;
     border-style: solid;
 
@@ -117,11 +115,12 @@ const CardName = styled.p(
     display: flex;
     padding: ${theme.space.s4};
 
-    font-size: 12px;
     line-height: 18px;
-    font-weight: 200;
-    text-align: left;
-    margin-left: 14px;
+    font-size: 12px;
+    font-weight: 300;
+
+    margin-left: 5px;
+    letter-spacing: 0px;
 
     `
 )

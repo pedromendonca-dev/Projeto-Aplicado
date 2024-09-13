@@ -59,7 +59,7 @@ const HeaderTitle = styled.h1(
     bottom: 0;
     left: 0;
 
-    margin-left: ${theme.space.s6};
+    margin-left: ${theme.space.s8};
     margin-bottom: ${theme.space.s4};
 
     text-align: left;
