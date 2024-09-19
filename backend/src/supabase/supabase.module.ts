@@ -13,7 +13,6 @@ import { createClient } from '@supabase/supabase-js';
 
         if (!supabaseUrl || !supabaseKey) {
           Logger.error('Supabase URL or Key is not defined');
-          throw new Error('Supabase URL or Key is not defined');
         } else {
           Logger.log('Supabase URL and Key loaded successfully');
         }
