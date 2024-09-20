@@ -2,43 +2,9 @@
 
 import Image from "next/image";
 import styled, { css } from "styled-components";
-
-
-
-// COLOCAR EM OUTRO ARQUIVO DEPOIS...
-
-const Categorias = [
-    {
-        nome: "Limpeza Residencial",
-        src: "/images/limpeza-residencial.png"
-    },
-    {
-        nome: "Jardinagem e Paisagismo",
-        src: "/images/jardinagem.png"
-    },
-    {
-        nome: "Construção e Reforma",
-        src: "/images/construcao.png"
-    },
-    {
-        nome: "Serviços de Mudança",
-        src: "/images/mudanca.png"
-    },
-    {
-        nome: "Reparo elétrico",
-        src: "/images/eletrico.png"
-    },
-    {
-        nome: "Limpeza de Piscinas",
-        src: "/images/piscina.png"
-    },
-]
-
-
-
+import { Categorias } from "@/lib/utils/constants";
 
 const CardCollector = () => (
-<>
 
   <CardBodyDiv>
     <CardCollectorDiv>
@@ -57,7 +23,6 @@ const CardCollector = () => (
         )}    
     </CardCollectorDiv>
   </CardBodyDiv>
-</>
 );
 
 const CardBodyDiv = styled.div(
@@ -72,8 +37,7 @@ const CardBodyDiv = styled.div(
 
     height: calc(100% - 180px);
     width: calc(100% - 300px);
-    
-    
+ 
 
     color: ${theme.colors.black};
     background-color: ${theme.colors.blue[200]};
@@ -84,7 +48,6 @@ const CardCollectorDiv = styled.div(
  ({ theme }) => css`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
     gap: 28px 28px; 
     
     max-width: calc(100% - 50px);
@@ -116,8 +79,10 @@ const Cards = styled.div(
 
     &:hover, &:active {
         cursor: pointer;
-        background-color: #000000;
-        color: #ffffff;
+        
+        background-color: ${theme.colors.black};
+        color: ${theme.colors.white};
+
         transform: translateY(-3%);
         -webkit-transition: transform 0.5s ease-out;
         -o-transition: transform 0.5s ease-out;
