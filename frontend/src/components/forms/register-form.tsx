@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -19,9 +20,12 @@ import { theme } from "@/lib/theme";
 
 import Google from "@/assets/images/google.svg";
 import RegisterBanner from "@/assets/images/register-banner.svg";
+import { useMutation } from "@tanstack/react-query";
+import { apiClient } from "@/lib/services/api/api-client";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
-  const route = useRouter();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -32,8 +36,19 @@ const RegisterForm = () => {
     resolver: zodResolver(registerFormSchema),
   });
 
+  const mutateCreate = useMutation({
+    mutationFn: ({ data }: any) => {
+      return apiClient.post("/api/usuarios", data);
+    },
+    onSuccess: () => {
+      toast.success("Usuário cadastrado com sucesso");
+      router.push("/login");
+    },
+    onError: () => {},
+  });
+
   const registerSubmit = (data: RegisterProps) => {
-    console.log(data);
+    mutateCreate.mutate({ data });
   };
 
   return (
@@ -79,7 +94,7 @@ const RegisterForm = () => {
               <Typography
                 fontSize="12px"
                 sx={{ ml: 1, color: theme.colors.blue[100] }}
-                onClick={() => route.push("/login")}
+                onClick={() => router.push("/login")}
               >
                 Logue-se aqui
               </Typography>
