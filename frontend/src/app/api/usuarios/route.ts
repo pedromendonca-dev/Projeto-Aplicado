@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   const { searchParams }: any = new URL(req.url);
-  console.log(searchParams);
+  console.log(searchParams, 'aqui');
 
   try {
     const response = await apiServer.get("/users");
