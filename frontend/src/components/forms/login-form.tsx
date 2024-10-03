@@ -148,7 +148,11 @@ const LoginForm = () => {
                 Esqueci minha senha
               </Typography>
             </Row>
-            <Button mb="s3" disabled={!isValid}>
+            <Button
+              mb="s3"
+              disabled={!isValid}
+              onClick={() => route.push("/categorias")}
+            >
               Entrar
             </Button>
             <Button type="button" variant="google">
@@ -159,7 +163,7 @@ const LoginForm = () => {
               <Typography
                 fontSize="12px"
                 sx={{ ml: 1, color: theme.colors.blue[100] }}
-                onClick={() => route.push("/register")}
+                onClick={() => route.push("/cadastro")}
               >
                 Cadastre-se aqui
               </Typography>
