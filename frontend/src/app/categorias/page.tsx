@@ -1,8 +1,9 @@
 "use client"
 import { SideNavbar } from '@/components';
-import Body from '@/components/body';
+import CardCollector from '@/components/card-collector';
 import Header from '@/components/header'
 import React from 'react'
+
 
  
  const Teste = () => {
@@ -10,6 +11,7 @@ import React from 'react'
     <>
     <Header headerTitle="Categorias" />
     <SideNavbar />
+    <CardCollector />
     </>
   )
 }

@@ -15,6 +15,7 @@ const colors = {
   },
   blue: {
     100: "#008CDB",
+    200: "#F1F5F7",
   },
 };
 
