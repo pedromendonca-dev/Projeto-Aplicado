@@ -24,6 +24,8 @@ import { theme } from "@/lib/theme";
 
 import Google from "@/assets/images/google.svg";
 import Banner from "@/assets/images/login-banner.svg";
+import { getAllUsers } from "@/lib/services/client/users";
+import { useQuery } from "@tanstack/react-query";
 
 const LoginForm = () => {
   const route = useRouter();
@@ -36,6 +38,15 @@ const LoginForm = () => {
     mode: "all",
     resolver: zodResolver(loginFormSchema),
   });
+
+  const { data: users } = useQuery({
+    queryKey: ["getAllUsers"],
+    queryFn: () => {
+      return getAllUsers();
+    },
+  });
+
+  console.log(users)
 
   const loginSubmit = (data: LoginProps) => {
     console.log(data);
