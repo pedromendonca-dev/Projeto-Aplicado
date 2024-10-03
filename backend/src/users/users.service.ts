@@ -1,70 +1,58 @@
-import { Injectable, Inject, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { SupabaseService } from '../supabase/supabase.service';
 
 @Injectable()
 export class UsersService {
-  private readonly logger = new Logger(UsersService.name);
+  constructor(private readonly supabaseService: SupabaseService) {}
 
-  constructor(@Inject('SUPABASE_CLIENT') private readonly supabaseClient) {
-    if (!this.supabaseClient) {
-      this.logger.error('Supabase client is not injected');
-    } else {
-      this.logger.log('Supabase client injected successfully');
-    }
-  }
-
-  async getUsers() {
-    this.logger.log('Fetching users');
-    const { data, error } = await this.supabaseClient.from('users').select('*');
-
-    if (error) {
-      this.logger.error('Error fetching users', error);
-      throw new Error(error.message);
-    }
-
-    return data;
-  }
-
-  async createUser(userDto: any) {
-    this.logger.log('Creating user', userDto);
-    const { data, error } = await this.supabaseClient
+  async create(user: any) {
+    const { data, error } = await this.supabaseService
+      .getClient()
       .from('users')
-      .insert([userDto]);
+      .insert([user])
+      .select();
 
-    if (error) {
-      this.logger.error('Error creating user', error);
-      throw new Error(error.message);
-    }
-
-    return data;
+    return { data, error };
   }
 
-  async updateUser(userId: string, userDto: any) {
-    this.logger.log(`Updating user with ID ${userId}`, userDto);
-    const { data, error } = await this.supabaseClient
+  async findAll() {
+    const { data, error } = await this.supabaseService
+      .getClient()
       .from('users')
-      .update(userDto)
-      .eq('id', userId);
-
-    if (error) {
-      this.logger.error(`Error updating user with ID ${userId}`, error);
-      throw new Error(error.message);
-    }
-
-    return data;
+      .select('*');
+    return { data, error };
   }
 
-  async deleteUser(userId: string) {
-    this.logger.log(`Deleting user with ID ${userId}`);
-    const { error } = await this.supabaseClient
+  async findOne(id: number) {
+    const { data, error } = await this.supabaseService
+      .getClient()
+      .from('users')
+      .select('*')
+      .eq('id', id)
+      .single();
+    return { data, error };
+  }
+
+  async update(id: number, user: any) {
+    const { data, error } = await this.supabaseService
+      .getClient()
+      .from('users')
+      .update(user)
+      .eq('id', id);
+    return { data, error };
+  }
+
+  async remove(id: number) {
+    const { data, error } = await this.supabaseService
+      .getClient()
       .from('users')
       .delete()
-      .eq('id', userId);
+      .eq('id', id);
 
     if (error) {
-      this.logger.error(`Error deleting user with ID ${userId}`, error);
-      throw new Error(error.message);
+      return { error };
     }
 
-    return { message: `User with ID ${userId} deleted successfully` };
+    return { data };
   }
 }
