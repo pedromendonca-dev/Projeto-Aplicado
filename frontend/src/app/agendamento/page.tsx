@@ -1,21 +1,25 @@
 "use client"
 
 import { SideNavbar } from '@/components';
+
 import CardCollector from '@/components/card-collector';
+import AgendamentoForm from '@/components/forms/agendamento-form';
+
 import Header from '@/components/header'
 import React from 'react'
 
 
  
- const Teste = () => {
+ const Agendamento = () => {
   return (
     <>
-    <Header headerTitle="Categorias" />
+    <Header headerTitle="O que você precisa?" />
     <SideNavbar />
-    <CardCollector />
+    <AgendamentoForm />
     </>
   )
 }
 
-export default Teste;
 
+
+export default Agendamento
