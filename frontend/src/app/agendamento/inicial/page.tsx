@@ -1,8 +1,6 @@
 "use client"
 
 import { SideNavbar } from '@/components';
-
-import CardCollector from '@/components/card-collector';
 import AgendamentoForm from '@/components/forms/agendamento-form';
 
 import Header from '@/components/header'

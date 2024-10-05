@@ -7,10 +7,9 @@ import Form from "./base-form";
 import { Row, Column, Button, Card } from "@/components";
 import styled, { css } from "styled-components"
 import { MenuItem, Select, InputLabel, FormControl } from '@mui/material';
-import type { AgendamentoForm } from "@/lib/schemas/agendamento";
 import { theme } from "@/lib/theme";
-import { agendamentoFormSchema } from "@/lib/schemas/agendamento";
 import { AgendamentoProps } from "@/lib/interface/agendamento";
+import { agendamentoFormSchema, AgendamentoFormType } from "@/lib/schemas/agendamento";
 
 
 
@@ -45,7 +44,7 @@ const AgendamentoForm = () => {
         handleSubmit,
         register,
         formState: { isValid },
-     } = useForm<AgendamentoForm>({
+     } = useForm<AgendamentoFormType>({
         mode: "all",
         resolver: zodResolver(agendamentoFormSchema)
      });
