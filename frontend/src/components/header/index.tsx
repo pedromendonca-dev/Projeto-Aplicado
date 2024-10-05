@@ -73,9 +73,11 @@ const HeaderTitle = styled.h1(
 
 const AvatarDiv = styled.div(
   ({ theme }) => css`
-  position: fixed;
+  
+  position: absolute;
   display: flex;
   align-items:center;
+
 
   top: 0;
   right: 0;

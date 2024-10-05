@@ -20,11 +20,12 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     paddingTop: theme.space.s6,
     paddingBottom: theme.space.s6,
-    paddingLeft: theme.space.s6,
+    paddingLeft: theme.space.s7,
     paddingRight: theme.space.s6,
     textAlign: 'start',
     color: theme.colors.black,
-    border: '1px solid #E7E7E7'
+    border: '1px solid #E7E7E7',
+    boxShadow: 'none',
   }));
 
 
@@ -71,30 +72,30 @@ const FinalizarAgendamentoForm = () => {
   return (
    <ContainerDiv>
         <Form onSubmit={handleSubmit(agendamentoFinal)}>
-            <Box sx={{ flexGrow: 1, backgroundColor: theme.colors.gray, mx: theme.space.s9, mt: theme.space.s8, mb: theme.space.s4}}>
-                <Grid container rowSpacing={theme.space.s4} columnSpacing={theme.space.s4}>
+            <Box sx={{ flexGrow: 1, backgroundColor: theme.colors.gray, mx: theme.space.s9, mt: theme.space.s8, mb: theme.space.s4 ,boxShadow: 'none'}}>
+                <Grid container rowSpacing={theme.space.s5} columnSpacing={theme.space.s5}>
                     <Grid size={6}>
                         <Item square>
                             <Typography fontSize={16} fontWeight={550} sx={{ mb: 2 }}>
                                 Informações Pessoais 
                             </Typography>
-                            <Typography fontSize={12} fontWeight={540} sx={{ mb: 2 }}>
+                            <Typography fontSize={12} fontWeight={545} sx={{ mb: 2 }}>
                                 Nome
                             </Typography>
 
                             <TextField
                                 label=""
-                                sx={{ width: '90%'}}
+                                sx={{ width: '95%'}}
                                 {...register("nome")}
                             />
 
-                            <Typography fontSize={12} fontWeight={540} sx={{ mb: 2, mt: 2 }}>
+                            <Typography fontSize={12} fontWeight={545} sx={{ mb: 2, mt: 2 }}>
                                 Sobrenome
                             </Typography>
 
                             <TextField
                                 label=""
-                                sx={{ width: '90%', mb: 1}}
+                                sx={{ width: '95%', mb: 1}}
                                 {...register("sobrenome")}
                             />
 
@@ -106,23 +107,23 @@ const FinalizarAgendamentoForm = () => {
                             <Typography fontSize={16} fontWeight={550} sx={{ mb: 2 }}>
                                 Contato
                             </Typography>
-                            <Typography fontSize={12} fontWeight={540} sx={{ mb: 2 }}>
+                            <Typography fontSize={12} fontWeight={545} sx={{ mb: 2 }}>
                                 Número de telefone
                             </Typography>
 
                             <TextField
                                 label=""
-                                sx={{ width: '90%'}}
+                                sx={{ width: '95%'}}
                                 {...register("contato")}
                             />
 
-                            <Typography fontSize={12} fontWeight={540} sx={{ mb: 2, mt: 2 }}>
+                            <Typography fontSize={12} fontWeight={545} sx={{ mb: 2, mt: 2 }}>
                                 E-mail
                             </Typography>
 
                             <TextField
                                 label=""
-                                sx={{ width: '90%', mb: 1}}
+                                sx={{ width: '95%', mb: 1}}
                                 type="email"
                                 {...register("email")}
                             />
@@ -131,44 +132,55 @@ const FinalizarAgendamentoForm = () => {
                 </Grid>
             </Box>
 
-            <Box sx={{ flexGrow: 1, backgroundColor: theme.colors.gray, mx: theme.space.s9 }}>
-                <Item square>
-                    <Column width="40%" height="228px">
-                        <Row mb={theme.space.s4}>
-                            <Typography fontSize={16} fontWeight={550}>
-                                Endereço
-                            </Typography>
-                        </Row>
-                        <Row width="100%" height="24px" mb={theme.space.s4}>
-                            <Typography fontSize={12} fontWeight={540}>
-                                CEP
-                            </Typography>
-                        </Row>
-                        
-                        <Row width="100%" height="50px" mb={theme.space.s4}>
-                            <TextField
-                                sx={{ width: '70%'}}
-                                {...register("cep")}
-                            >
-                            </TextField>
-                        </Row>
-                        <Row width="100%" height="24px" mb={theme.space.s4}>
-                            <Typography fontSize={12} fontWeight={540}>
-                                Bairro
-                            </Typography>
-                        </Row>
-                        <Row width="100%" height="50px" mb={theme.space.s4}>
-                            <TextField
-                                sx={{ width: '90%', mb: 4}}
-                                {...register("bairro")}
-                            >
-                            </TextField>
-                        </Row>        
+            <Box 
+                sx={{ flexGrow: 1, 
+                        backgroundColor: '#fff',
+                        mx: theme.space.s9, 
+                        mt: theme.space.s5, 
+                        mb: theme.space.s5,
+                        textAlign: 'start',
+                        color: theme.colors.black,
+                        border: '1px solid #E7E7E7',
+                        height: '280px'
+                        }}>
 
-                        </Column>
+                            <Row width='100%' height='72px' alignItems='center' marginX={theme.space.s7} marginBottom={theme.space.s2}>
+                                <Typography fontSize={16} fontWeight={550}>
+                                    Endereço
+                                </Typography>
+                            </Row>
+                            <Row height='74px' alignItems='center' marginX={theme.space.s7} marginLeft={theme.space.s7} >
+                                <Column marginBottom='s2' width='24%' marginRight='s4'>
+                                    <Typography fontSize={12} fontWeight={545} sx={{ mb: 2 }}>
+                                        CEP
+                                    </Typography>
+                                    <TextField
+                                        {...register("cep")}
+                                        >
+                                    </TextField>
+                                </Column>
 
-                    </Item>
-            </Box>
+                                <Column marginBottom='s2' width='51%' marginRight='s4'>
+                                    <Typography fontSize={12} fontWeight={545} sx={{ mb: 2 }} >
+                                        Rua
+                                    </Typography>
+                                    <TextField
+                                        {...register("rua")}
+                                        >
+                                    </TextField>
+                                </Column>
+
+                                <Column marginBottom='s2' marginRight='s4'>
+                                    <Typography fontSize={12} fontWeight={545} sx={{ mb: 2 }}>
+                                        Número
+                                    </Typography>
+                                    <TextField
+                                        {...register("numero")}
+                                        >
+                                    </TextField>
+                                </Column>
+                            </Row>
+                </Box>
         </Form>
     </ContainerDiv>
   );
