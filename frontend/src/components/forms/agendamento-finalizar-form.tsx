@@ -28,7 +28,6 @@ const Item = styled(Paper)(({ theme }) => ({
     paddingRight: theme.space.s6,
     textAlign: 'start',
     color: theme.colors.black,
-    border: '1px solid #E7E7E7',
     boxShadow: 'none',
   }));
 
@@ -79,7 +78,7 @@ const FinalizarAgendamentoForm = () => {
             <Box sx={{ flexGrow: 1, backgroundColor: theme.colors.gray, mx: theme.space.s9, mt: theme.space.s8, mb: theme.space.s4 ,boxShadow: 'none'}}>
                 <Grid container rowSpacing={theme.space.s5} columnSpacing={theme.space.s5}>
                     <Grid size={6}>
-                        <Item square>
+                        <Item variant="outlined" square>
                             <Typography fontSize={16} fontWeight={600} sx={{ mb: 2 }} >
                                 Informações Pessoais 
                             </Typography>
@@ -155,7 +154,7 @@ const FinalizarAgendamentoForm = () => {
                             </Row>
                             <Row height='74px' alignItems='center' marginX={theme.space.s7} marginLeft={theme.space.s7} marginBottom={theme.space.s5} >
                                 <Column marginBottom='s1' width='24%' marginRight='s4'>
-                                    <Typography fontSize={12} fontWeight={550} sx={{ mb: 1.5  }}>
+                                    <Typography fontSize={12} fontWeight={550} sx={{ mb: 2  }}>
                                         CEP
                                     </Typography>
                                     <TextField
@@ -165,7 +164,7 @@ const FinalizarAgendamentoForm = () => {
                                 </Column>
 
                                 <Column marginBottom='s1' width='51%' marginRight='s4'>
-                                    <Typography fontSize={12} fontWeight={550} sx={{ mb: 1.5 }} >
+                                    <Typography fontSize={12} fontWeight={550} sx={{ mb: 2 }} >
                                         Rua
                                     </Typography>
                                     <TextField
@@ -175,7 +174,7 @@ const FinalizarAgendamentoForm = () => {
                                 </Column>
 
                                 <Column marginBottom='s1' marginRight='s4'>
-                                    <Typography fontSize={12} fontWeight={550} sx={{ mb: 1.5 }}>
+                                    <Typography fontSize={12} fontWeight={550} sx={{ mb: 2 }}>
                                         Número
                                     </Typography>
                                     <TextField

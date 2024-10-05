@@ -60,6 +60,17 @@ export const Button = styled.button<ButtonProps>(
           margin-right: ${theme.space.s3};
           margin-left: ${theme.space.s5};
         }
+        &:hover,
+        &:focus {
+        color: ${theme.colors.white};
+        background-color:${theme.colors.black};
+        border: 1px solid ${theme.colors.white};
+
+        img {
+          filter: invert(1); /* Reverte a inversão ao focar */
+          }
+        }
+
       `}
   `,
   decoration,
