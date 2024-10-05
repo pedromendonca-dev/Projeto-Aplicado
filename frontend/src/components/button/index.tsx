@@ -45,6 +45,22 @@ export const Button = styled.button<ButtonProps>(
         margin-right: ${theme.space.s2};
       }
     `}
+
+    ${variant === "image_card" &&
+      css`
+        border: 1px solid #DADADA;
+  
+        color: ${theme.colors.black};
+        background-color: ${theme.colors.white};
+
+        font-size: 12px;
+        font-weight: 550;
+  
+        img {
+          margin-right: ${theme.space.s3};
+          margin-left: ${theme.space.s5};
+        }
+      `}
   `,
   decoration,
   display
