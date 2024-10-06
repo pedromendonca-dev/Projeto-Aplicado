@@ -12,8 +12,6 @@ import Left from "@/assets/images/left.svg";
 
 const ContainerHead = styled(Container)(({ theme }) => ({
 
-    backgroundColor: theme.colors.white,
-    width: '100%',
     height: '70px',
 
     margin: 0,
@@ -39,7 +37,7 @@ const HeaderPerfil = () => {
         disableGutters
         maxWidth={false}
         >
-            <Button type="button" variant="arrow_back_button" justifyContent="center" alignItems="center" marginY={theme.space.s2} marginLeft={theme.space.s5}>
+            <Button type="button" variant="arrow_back_button" height={'40px'} width={'40px'} justifyContent="center" alignItems="center" marginY={theme.space.s3} marginLeft={theme.space.s5}>
                 <Image src={Left} alt="botão-de-voltar" />
             </Button>
         

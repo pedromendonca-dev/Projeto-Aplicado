@@ -1,10 +1,9 @@
+
 import Image from "next/image";
 import styled, { css } from "styled-components";
-
 import Costumer from "@/assets/images/costumer.svg"
 import Notification from "@/assets/images/notification.svg"
 import Password from "@/assets/images/password.svg"
-import { Typography } from "@mui/material";
 
 
 
@@ -36,7 +35,7 @@ const SideNavbarPerfilContainer = styled.div(
     display: flex;
 
     width: 300px;
-    height: 100%;
+    height: 836px;
 
     top: 70px;
     left: 0px;
