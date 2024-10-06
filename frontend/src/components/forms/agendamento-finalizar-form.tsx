@@ -15,6 +15,7 @@ import { AgendamentoFinalForm, agendamentoFinalFormSchema } from "@/lib/schemas/
 import { AgendamentoFinalProps } from "@/lib/interface/agendamento-final";
 import { Row, Column, Button} from "@/components";
 import Card from '@mui/material/Card'
+import AlertDialog from "../dialog";
 
 import MagneticCard from "@/assets/images/magnetic_card.svg"
 import PixSvg from "@/assets/images/pix.svg"
@@ -302,17 +303,12 @@ const FinalizarAgendamentoForm = () => {
                 </Box>
                 <Column width='96%' height='70px' marginLeft={theme.space.s9} marginBottom={theme.space.s4}>
                         <Row flexDirection='row-reverse' marginRight='38px'>
-                            <Button style={{ paddingLeft: theme.space.s9 , paddingRight: theme.space.s9, marginLeft: theme.space.s6 }}>
-                                Finalizando Agendamento
-                            </Button>
+
+                            <AlertDialog buttonTitle="Finalizar Agendamento" />
 
                             <Typography fontSize={16} fontWeight={700} alignSelf="center" marginRight={theme.space.s2}> 
                                 Cancelar
                             </Typography>
-
-
-
-
                         </Row>
                 </Column>
         </Form>
