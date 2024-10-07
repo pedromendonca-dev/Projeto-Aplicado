@@ -7,19 +7,14 @@ import SideNavbarPerfil from '@/components/side-navbar/index-perfil';
 
 
 
-// AUTENTICAÇÃO
-
-// CHECAR ID
-
-const Perfil = () => {
+const PerfilSenha = () => {
 
     return(
         <>
         <HeaderPerfil />
         <SideNavbarPerfil />
-        <PerfilBody />
         </>
     )
 }
 
-export default Perfil
+export default PerfilSenha

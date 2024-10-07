@@ -3,9 +3,9 @@
 import React, { useRef, useState } from 'react';
 import Image from "next/image";
 import styled, { css } from "styled-components";
-import Costumer from "@/assets/images/costumer.svg"
-import Notification from "@/assets/images/notification.svg"
-import Password from "@/assets/images/password.svg"
+
+import { useRouter, usePathname } from 'next/navigation';
+import { sideMenuLinks } from '@/lib/utils/constants/constants';
 
 
 
@@ -15,30 +15,27 @@ import Password from "@/assets/images/password.svg"
 
 const SideNavbarPerfil = () => {
 
-  const [focus, setFocus] = useState(true)
+  const router = useRouter();
 
-  const handleClick = () => {
-    setFocus(!focus);
-  }
+  const pathname = usePathname();
+
+  const handleNavigate = ( path: string ) => {
+    router.push(path);
+  };
 
 
 
   return(
       <SideNavbarPerfilContainer >
-        <NavItem onClick={(handleClick)} href="#perfil" autoFocus={(focus)}>
-            <Image style={{ marginRight: 24 }} src={Costumer} alt="Categorias" />  
-                Meu Perfil
-        </NavItem>
-
-        <NavItem href="#senha" style={{ marginLeft: '2px'}}>
-            <Image style={{ marginRight: 22 }} src={Password} alt="senha" />
-            Senha
-        </NavItem>
-
-        <NavItem href="#notificacoes">
-            <Image style={{ marginRight: 14 }} src={Notification} alt="notificações" />
-          Notificações
-        </NavItem>
+        {sideMenuLinks.map((links) => (
+          <NavItem
+            key={links.path}
+            onClick={() => handleNavigate(links.path)}
+            isActive={pathname === links.path} >
+              <Image style={{ marginRight: 24 }} src={links.icon} alt={links.name} />
+              {links.name}
+            </NavItem>
+          ))}
       </SideNavbarPerfilContainer>
     )
 };
@@ -67,37 +64,44 @@ const SideNavbarPerfilContainer = styled.div(
 );
 
 
-const NavItem = styled.a(
-  ({ theme }) => css`
-
+const NavItem = styled(({ isActive, ...rest }: { isActive: boolean } & React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <a {...rest} />
+))<{ isActive: boolean }>(
+  ({ theme, isActive }) => css`
     display: flex;
     align-items: center;
-
     width: 100%;
     padding: ${theme.space.s4} ${theme.space.s4};
-
     text-decoration: none;
     text-align: left;
-
     font-size: ${theme.space.s3};
     color: ${theme.colors.black};   
-    transition: background-color 0.3s, color 0.3s;
-
+    transition: background-color 0.1s, color 0.1s;
     border-radius: ${theme.space.s2};
     margin-bottom: ${theme.space.s4};
     padding-left: ${theme.space.s6};
-
     font-weight: 600;
 
-     &:hover,
-     &:focus {
-        color: ${theme.colors.white};
-        background-color:${theme.colors.black};
-        border: 1px solid ${theme.colors.white};
-        img {
-          filter: invert(1);
-          }
-        }
+    ${isActive &&
+    css`
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.black};
+      border: 1px solid ${theme.colors.white};
+      img {
+        filter: invert(1);
+      }
+    `}
+
+    &:hover,
+    &:focus {
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.black};
+      border: 1px solid ${theme.colors.white};
+      cursor: pointer;
+      img {
+        filter: invert(1);
+      }
+    }
   `
 );
 
