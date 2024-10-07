@@ -8,6 +8,7 @@ import  Avatar from '@mui/material/Avatar';
 import { Typography , TextField} from "@mui/material";
 import Image from "next/image";
 import Estrelas from "@/assets/images/estrelas.png"
+import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
 
 
 // type PerfilData = {
@@ -17,6 +18,10 @@ import Estrelas from "@/assets/images/estrelas.png"
 //   }
 
 
+    const CircularImage = styled(Image)`
+        border-radius: 50%;
+
+    `;
     const PerfilContainer = styled.div(
         ({ theme }) => css`
         display: flex;
@@ -43,14 +48,18 @@ import Estrelas from "@/assets/images/estrelas.png"
                 <PerfilContainer>
                     <Column width='100%' height='100%'>
                         <Row width='100%' height='182px' backgroundColor='#AAE6BB' borderRadius={theme.space.s3} />
-                            <Row width='862px' height='386px' position='absolute' top='116px' left='186px'>
+                            <Row width='900px' height='386px' position='absolute' top='116px' left='186px'>
                                 <Column mr={theme.space.s7}>
-                                    <Avatar
-                                        alt="Marianne"
-                                        sx={{ width: 170, height: 170, bgcolor: theme.colors.gray[100], fontSize: '32px', mb: theme.space.s8 }}
-                                        >
-                                            M
-                                    </Avatar>
+                                    <CircularImage 
+                                        src={PerfilPlaceholder} 
+                                        alt="Descrição da imagem" 
+                                        width={170} 
+                                        height={170}
+                                        style={{
+                                            marginBottom: theme.space.s7,
+                                        }}
+                                         
+                                    />
                                     <Typography fontSize={14} fontWeight={600} mb={theme.space.s7} align="left" mt='20px' ml={theme.space.s5}>
                                         Seu nome
                                     </Typography>
@@ -84,21 +93,21 @@ import Estrelas from "@/assets/images/estrelas.png"
                                 </Column>
                             </Row>
                             
-                        <Row position='absolute' top='500px' width='100%' height='1px' backgroundColor='#F2F2F2' />
+                            <Row position='absolute' top='500px' width='96%' height='1px' backgroundColor='#F2F2F2' />
 
-                        <Row position='absolute' top='522px' left='194px' width='858px' height='246px'>
-                            <Column width='170px' marginRight={theme.space.s10}>
-                                <Typography ml={theme.space.s4} fontSize={14} fontWeight={600} mt={theme.space.s2} mb={theme.space.s2} >
-                                    Sua foto
-                                </Typography>
-                                <Typography ml={theme.space.s4} fontSize={12} fontWeight={200} mb={theme.space.s2} color="#333333" maxWidth='160px'>
-                                    Essa é a foto que aparece em seu perfil
-                                </Typography>
-                            </Column>
-                            <Column mt={theme.space.s1} ml={theme.space.s2} width='95%' backgroundColor={theme.colors.white} borderRadius={theme.space.s3} border={'1.5px dashed #A2A2A2'}>
+                            <Row position='absolute' top='522px' left='194px' width='892px' height='246px'>
+                                <Column width='170px' marginRight={theme.space.s10}>
+                                    <Typography ml={theme.space.s4} fontSize={14} fontWeight={600} mt={theme.space.s2} mb={theme.space.s2} >
+                                        Sua foto
+                                    </Typography>
+                                    <Typography ml={theme.space.s4} fontSize={12} fontWeight={200} mb={theme.space.s2} color="#333333" maxWidth='160px'>
+                                        Essa é a foto que aparece em seu perfil
+                                    </Typography>
+                                </Column>
+                                <Column mt={theme.space.s1} ml={theme.space.s2} width='95%' backgroundColor={theme.colors.white} borderRadius={theme.space.s3} border={'1.5px dashed #A2A2A2'}>
 
-                            </Column>
-                        </Row>
+                                </Column>
+                            </Row>
                     </Column>
                 </PerfilContainer>
             </>

@@ -3,7 +3,8 @@
 import { SideNavbar } from '@/components';
 import HeaderPerfil from '@/components/header/perfil-index';
 import PerfilBody from '@/components/perfil';
-import { SideNavbarPerfil } from '@/components/side-navbar/index-perfil';
+import SideNavbarPerfil from '@/components/side-navbar/index-perfil';
+
 
 
 
@@ -12,6 +13,7 @@ import { SideNavbarPerfil } from '@/components/side-navbar/index-perfil';
 // CHECAR ID
 
 const Perfil = () => {
+
     return(
         <>
         <HeaderPerfil />

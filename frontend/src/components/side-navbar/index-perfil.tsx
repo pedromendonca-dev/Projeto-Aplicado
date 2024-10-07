@@ -1,4 +1,6 @@
+"use client"
 
+import React, { useRef, useState } from 'react';
 import Image from "next/image";
 import styled, { css } from "styled-components";
 import Costumer from "@/assets/images/costumer.svg"
@@ -7,27 +9,39 @@ import Password from "@/assets/images/password.svg"
 
 
 
-export const SideNavbarPerfil = () => (
 
-  <SideNavbarPerfilContainer >
 
-    <NavItem href="#categories">
-        <Image style={{ marginRight: 24 }} src={Costumer} alt="Categorias" />  
-            Meu Perfil
-    </NavItem>
 
-    <NavItem href="#services" style={{ marginLeft: '2px'}}>
-        <Image style={{ marginRight: 22 }} src={Password} alt="senha" />
-         Senha
-    </NavItem>
 
-    <NavItem href="#about">
-        <Image style={{ marginRight: 14 }} src={Notification} alt="notificações" />
-       Notificações
-    </NavItem>
+const SideNavbarPerfil = () => {
 
-  </SideNavbarPerfilContainer>
-);
+  const [focus, setFocus] = useState(true)
+
+  const handleClick = () => {
+    setFocus(!focus);
+  }
+
+
+
+  return(
+      <SideNavbarPerfilContainer >
+        <NavItem onClick={(handleClick)} href="#perfil" autoFocus={(focus)}>
+            <Image style={{ marginRight: 24 }} src={Costumer} alt="Categorias" />  
+                Meu Perfil
+        </NavItem>
+
+        <NavItem href="#senha" style={{ marginLeft: '2px'}}>
+            <Image style={{ marginRight: 22 }} src={Password} alt="senha" />
+            Senha
+        </NavItem>
+
+        <NavItem href="#notificacoes">
+            <Image style={{ marginRight: 14 }} src={Notification} alt="notificações" />
+          Notificações
+        </NavItem>
+      </SideNavbarPerfilContainer>
+    )
+};
 
 const SideNavbarPerfilContainer = styled.div(
   ({ theme }) => css`
@@ -52,18 +66,6 @@ const SideNavbarPerfilContainer = styled.div(
   `
 );
 
-const NavLabel = styled.label(
-  ({ theme }) => css`
-    width: 100%;
-    margin-top: ${theme.space.s4};
-    margin-bottom: ${theme.space.s6};
-    
-    text-align: left;
-    color: ${theme.colors.black};
-    font-size: ${theme.space.s4};
-    font-weight: bold;    
-  `
-);
 
 const NavItem = styled.a(
   ({ theme }) => css`
@@ -98,3 +100,5 @@ const NavItem = styled.a(
         }
   `
 );
+
+export default SideNavbarPerfil

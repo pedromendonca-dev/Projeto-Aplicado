@@ -26,6 +26,7 @@ import Google from "@/assets/images/google.svg";
 import Banner from "@/assets/images/login-banner.svg";
 
 const LoginForm = () => {
+  
   const route = useRouter();
 
   const {
