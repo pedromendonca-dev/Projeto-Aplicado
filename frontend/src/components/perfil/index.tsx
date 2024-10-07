@@ -5,10 +5,13 @@ import { Column } from "../column";
 import { Row } from "../row"
 import { theme } from "@/lib/theme";
 import  Avatar from '@mui/material/Avatar';
-import { Typography , TextField} from "@mui/material";
+import { Typography , TextField, IconButton} from "@mui/material";
 import Image from "next/image";
 import Estrelas from "@/assets/images/estrelas.png"
 import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
+import { useState } from "react";
+import { Button } from "@mui/material";
+import uploadFile from "@/assets/images/uploadFile.svg"
 
 
 // type PerfilData = {
@@ -17,12 +20,24 @@ import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
 //     photo?: string,
 //   }
 
+    const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+    });
 
     const CircularImage = styled(Image)`
         border-radius: 50%;
 
     `;
-    const PerfilContainer = styled.div(
+
+    const PerfilContainerPerfil = styled.div(
         ({ theme }) => css`
         display: flex;
         position: relative;
@@ -43,9 +58,20 @@ import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
     
 
     const PerfilBody = () => {
+
+        const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+        const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setImagePreview(imageUrl); 
+        }
+  };
+
         return(
             <>
-                <PerfilContainer>
+                <PerfilContainerPerfil>
                     <Column width='100%' height='100%'>
                         <Row width='100%' height='182px' backgroundColor='#AAE6BB' borderRadius={theme.space.s3} />
                             <Row width='900px' height='386px' position='absolute' top='116px' left='186px'>
@@ -95,7 +121,7 @@ import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
                             
                             <Row position='absolute' top='500px' width='96%' height='1px' backgroundColor='#F2F2F2' />
 
-                            <Row position='absolute' top='522px' left='194px' width='892px' height='246px'>
+                            <Row position='absolute' top='522px' left='194px' width='892px' height='254px'>
                                 <Column width='170px' marginRight={theme.space.s10}>
                                     <Typography ml={theme.space.s4} fontSize={14} fontWeight={600} mt={theme.space.s2} mb={theme.space.s2} >
                                         Sua foto
@@ -104,12 +130,43 @@ import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
                                         Essa é a foto que aparece em seu perfil
                                     </Typography>
                                 </Column>
-                                <Column mt={theme.space.s1} ml={theme.space.s2} width='95%' backgroundColor={theme.colors.white} borderRadius={theme.space.s3} border={'1.5px dashed #A2A2A2'}>
+                                <Column mt={theme.space.s1} ml={theme.space.s2} width='95%' backgroundColor={theme.colors.white} borderRadius={theme.space.s3}
+                                    border={'1.5px dashed #A2A2A2'}
+                                    display="flex"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    position='relative' 
+                                    >
+                                    {imagePreview && (
 
+                                    <Image
+                                        src={imagePreview} 
+                                        alt="Preview"
+                                        width={685}
+                                        height={242}
+                                        style={{ borderRadius: '12px', paddingLeft: '6px', paddingRight: '6px', paddingTop: '4px', paddingBottom: '4px'}} 
+                                        />
+                                        )}
+                                        
+                                        <IconButton
+                                            component="label"
+                                            role={undefined}
+                                            tabIndex={-1}
+                                            sx={{ width: 64, height: 64, position: 'absolute'}}
+                                            >
+                                            
+                                            <VisuallyHiddenInput
+                                                type="file"
+                                                accept=".jpg,.jpeg,.png" 
+                                                onChange={handleFileChange}
+                                                multiple
+                                            />
+                                            <Image src={uploadFile} alt="Icon" width={50} height={50}/>
+                                        </IconButton>
                                 </Column>
                             </Row>
                     </Column>
-                </PerfilContainer>
+                </PerfilContainerPerfil>
             </>
         )
     }
@@ -120,3 +177,6 @@ import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
 
 
   export default PerfilBody;
+
+
+
