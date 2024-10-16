@@ -9,6 +9,8 @@ interface ThemeColors {
   black: string;
   green: {
     "100": string;
+    "200": string;
+    "300": string;
   };
   gray: {
     "100": string;
@@ -19,6 +21,14 @@ interface ThemeColors {
     "100": string;
     "200": string;
   };
+  pink: {
+    "100": string;
+    "200": string;
+  };
+  orange: {
+    "100": string;
+    "200": string;
+  }
 }
 
 interface ThemeSpace {
