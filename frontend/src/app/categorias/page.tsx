@@ -1,11 +1,12 @@
 "use client"
-import { SideNavbar } from '@/components';
-import CardCollector from '@/components/card-collector';
-import Header from '@/components/header'
+
 import React from 'react'
 
+import Header from '@/components/header'
+import CardCollector from '@/components/card-collector';
 
- 
+import { SideNavbar } from '@/components';
+
  const Teste = () => {
   return (
     <>
