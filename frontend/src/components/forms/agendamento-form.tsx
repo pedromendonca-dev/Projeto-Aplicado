@@ -1,23 +1,15 @@
 
 import { useRouter } from "next/navigation";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextField, Typography } from "@mui/material";
-
 import Form from "./base-form";
 import { Row, Column, Button, Card } from "@/components";
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components"
 import { MenuItem, Select, InputLabel, FormControl } from '@mui/material';
-
-import { RegisterProps } from "@/lib/interface/register";
-
-import type { AgendamentoForm } from "@/lib/schemas/agendamento";
-
 import { theme } from "@/lib/theme";
-import { agendamentoFormSchema } from "@/lib/schemas/agendamento";
 import { AgendamentoProps } from "@/lib/interface/agendamento";
-import { marginLeft, width } from "styled-system";
+import { agendamentoFormSchema, AgendamentoFormType } from "@/lib/schemas/agendamento";
 
 
 
@@ -45,79 +37,94 @@ const Container = styled.div(
 
 
 const AgendamentoForm = () => {
+
     const router = useRouter()
 
     const {
         handleSubmit,
         register,
         formState: { isValid },
-     } = useForm<AgendamentoForm>({
+     } = useForm<AgendamentoFormType>({
         mode: "all",
-        //resolver: zodResolver(agendamentoFormSchema)
+        resolver: zodResolver(agendamentoFormSchema)
      });
 
-     const agendamentoSubmit = (data:any) => {
+     const agendamentoSubmit = (data:AgendamentoProps) => {
         console.log(data);
      };
 
      
-     //border-width: 1px; border-color: #C5C5C5; border-style: solid;
+    
      return(
-        <Container>
-            <Form onSubmit={handleSubmit(agendamentoSubmit)}>
-            <Row width="100%" height="66vh" alignItems="center">
-                <Column width="80%" height="90%" border='1px solid #E7E7E7' paddingX={theme.space.s12} paddingY={theme.space.s10} marginX="s12" marginTop={theme.space.s11} backgroundColor={theme.colors.white}>
-                    <Column marginBottom="s3">
-                        <Typography fontSize={18} fontWeight={500} color={theme.colors.black}>
-                        Serviços
-                        </Typography>
-                    </Column>
-                    
-                    <Column height="100%" width="95%" marginBottom="s3">
-                        <FormControl fullWidth sx={{ mb: 2, width: '56vh' }}>
-                            <InputLabel>Selecione os serviços que deseja</InputLabel>
-                            <Select
-                                label="Selecione os serviços que deseja"
-                                {...register("categorias")} 
-                            >
-                                <MenuItem value="1">Limpeza Residencial</MenuItem>
-                                <MenuItem value="2">Jardinagem e Paisagismo</MenuItem>
-                                <MenuItem value="3">Construção e Reforma</MenuItem>
-                            </Select>
-                            </FormControl>
-                            <Typography fontSize={18} fontWeight={500} color={theme.colors.black} marginBottom="s4">
-                            Título
-                            </Typography>
-                            <TextField
-                            label=""
-                            sx={{ mb: 2, mt:1 }}
-                            {...register("titulo")}
-                            />
-                            <Typography fontSize={18} fontWeight={500} color={theme.colors.black} marginBottom="s4">
-                            Informações gerais
-                            </Typography>
-                            <TextField
-                                id="info"
-                                multiline
-                                rows={5}
-                                defaultValue=""
-                                sx={{ mb: 2, mt:2 }}
-                                {...register("info")}
-                            />
-                        </Column>    
-                </Column>
-            </Row>
 
-            <Row width="100%" height="16vh" justifyContent="flex-end" marginTop={theme.space.s5} >
-                 <Column width="51%">
-                    <Button mt="s2" width={'64vh'} >
-                        Continuar Agendamento
+            <Container>
+                <Form onSubmit={handleSubmit(agendamentoSubmit)}>
+                <Row width="100%" height="66vh" alignItems="center">
+                    <Column width="80%" height="90%" border='1px solid #E7E7E7' paddingX={theme.space.s12} paddingY={theme.space.s10} marginX="s12" marginTop={theme.space.s11} backgroundColor={theme.colors.white}>
+                        <Column marginBottom="s2">
+                            <Typography fontSize={18} fontWeight={550} color={theme.colors.black}>
+                            Serviços
+                            </Typography>
+                        </Column>
+                        
+                        <Column height="100%" width="95%" marginBottom="s3">
+                            <FormControl fullWidth sx={{ mb: 2, mt:1,  width: '56vh' }}>
+                                <InputLabel>Selecione os serviços que deseja</InputLabel>
+                                <Select
+                                    label="Selecione os serviços que deseja"
+                                    {...register("categorias")} 
+                                >
+                                    <MenuItem value="1">Limpeza Residencial</MenuItem>
+                                    <MenuItem value="2">Jardinagem e Paisagismo</MenuItem>
+                                    <MenuItem value="3">Construção e Reforma</MenuItem>
+                                </Select>
+                                </FormControl>
+                                <Typography fontSize={18} fontWeight={550} color={theme.colors.black} marginBottom="s4">
+                                Título
+                                </Typography>
+                                <TextField
+                                label=""
+                                sx={{ mb: 2, mt:2 }}
+                                {...register("titulo")}
+                                />
+                                <Typography fontSize={18} fontWeight={550} color={theme.colors.black} marginBottom="s4">
+                                Informações gerais
+                                </Typography>
+                                <TextField
+                                    id="info"
+                                    multiline
+                                    rows={5}
+                                    defaultValue=""
+                                    sx={{ mb: 2, mt:2 }}
+                                    {...register("info")}
+                                />
+                            </Column>    
+                    </Column>
+                </Row>
+
+                <Row width='88%' height='10vh' alignItems="center" justifyContent='flex-end' mt={theme.space.s4} pr={theme.space.s8}>
+                    <Typography
+                        fontSize='14'
+                        fontWeight={600}
+                        mr={theme.space.s7}
+                        >
+                            Cancelar
+                    </Typography>    
+
+                    <Button 
+                        disabled={isValid}
+                        px={theme.space.s8}
+                        py={theme.space.s4}
+                        fontSize={'12px'}
+                        >
+                            Continuar Agendamento
                     </Button>
-                </Column>
-            </Row>
+                </Row>
             </Form>
+
         </Container>
-     )
+
+        )
 
     }
 

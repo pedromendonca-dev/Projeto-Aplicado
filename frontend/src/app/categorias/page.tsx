@@ -1,4 +1,5 @@
 "use client"
+
 import { SideNavbar } from '@/components';
 import CardCollector from '@/components/card-collector';
 import Header from '@/components/header'
