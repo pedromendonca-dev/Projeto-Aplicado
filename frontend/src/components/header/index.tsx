@@ -59,7 +59,7 @@ const HeaderTitle = styled.h1(
     bottom: 0;
     left: 0;
 
-    margin-left: ${theme.space.s8};
+    margin-left: 28px;
     margin-bottom: ${theme.space.s4};
 
     text-align: left;
@@ -73,9 +73,11 @@ const HeaderTitle = styled.h1(
 
 const AvatarDiv = styled.div(
   ({ theme }) => css`
-  position: fixed;
+  
+  position: absolute;
   display: flex;
   align-items:center;
+
 
   top: 0;
   right: 0;
