@@ -10,7 +10,7 @@ import React from 'react'
  const Teste = () => {
   return (
     <>
-    <Header headerTitle="Categorias" />
+    <Header headerTitle="Serviços Contratados" />
     <SideNavbar />
     <CardCollector />
     </>
