@@ -41,17 +41,17 @@ export default function Header() {
             <Row display='flex' mt={theme.space.s1}>
             <Avatar alt="Foto de Perfil" src="M" sx={{ width:40, height: 40}} />
               <Column ml={theme.space.s2} mr={theme.space.s1}>
-                <Typography fontSize={theme.space.s3} color={theme.colors.black} fontWeight={600} mb={theme.space.s1}>
+                <Typography fontSize={theme.space.s3} color={theme.colors.black} fontWeight={600} mb={theme.space.s1} letterSpacing={0.8}>
                   {user.name}
                 </Typography>
-                <Typography fontSize={theme.space.s2} color={theme.colors.black} fontWeight={500} letterSpacing={0.2}>
+                <Typography fontSize={10} color='#333333' fontWeight={500} letterSpacing={0.8}>
                   {user.email}
                 </Typography>
             </Column>
             </Row>
         </ContainerInfo>
         <ContainerText>
-          <Typography fontSize={theme.space.s5} color={theme.colors.black} fontWeight={600} ml={theme.space.s1} >
+          <Typography fontSize='20px' color={theme.colors.black} fontWeight={600} ml={theme.space.s1} >
               Categorias
           </Typography>
           <MultipleSelect />
@@ -70,7 +70,7 @@ const HeaderLayout = styled.header(
     padding-left: ${theme.space.s5};
     padding-top: ${theme.space.s5};
     padding-bottom: ${theme.space.s4};
-    border-bottom: 2px solid #EFEFEF;
+    border-bottom: 2px solid #D8D8D8;
   `
 );
 
