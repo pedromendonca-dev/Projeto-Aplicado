@@ -9,9 +9,10 @@ import React from 'react'
 
  
  const Agendamento = () => {
+
   return (
     <>
-    <Header headerTitle="O que você precisa?" />
+    <Header userId={32} headerTitle='O que você precisa?' />
     <SideNavbar />
     <AgendamentoForm />
     </>

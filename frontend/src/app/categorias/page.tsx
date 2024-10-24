@@ -1,21 +1,21 @@
 "use client"
 
 import { SideNavbar } from '@/components';
-import CardCollector from '@/components/card-collector';
+import CategoriasBody from '@/components/card-collector';
 import Header from '@/components/header'
 import React from 'react'
 
 
  
- const Teste = () => {
+ const Categorias = () => {
   return (
     <>
-    <Header headerTitle="Serviços Contratados" />
+    <Header headerTitle="Categorias" userId={32} />
     <SideNavbar />
-    <CardCollector />
+    <CategoriasBody />
     </>
   )
 }
 
-export default Teste;
+export default Categorias;
 

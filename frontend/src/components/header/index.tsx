@@ -1,34 +1,46 @@
-"use client"
+
 import { Avatar } from "@mui/material";
 import styled, { css } from "styled-components";
 import MultipleSelect from "../select-header";
+import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
 
 type HeaderProps = {
-  //data: 
-  headerTitle: string
+  userId: number,
+  headerTitle: string,
 }
 
 // Adicionar e vincular os dados de perfil -> Header
 
 
-const Header = ({ headerTitle } : HeaderProps) => (
-  <HeaderContainer>
-    <HeaderTitle>
-      { headerTitle }
-    </HeaderTitle>
-    <AvatarDiv>
-      <Avatar alt="Foto de Perfil" src="" sx={{ width:40, height: 40}} />
-      <ProfileInfo>
-        <AvatarNome>Marianne Gomes</AvatarNome> 
-        <AvatarEmail>mariannegomes@gmail.com</AvatarEmail>
-      </ProfileInfo>
-    </AvatarDiv>
+export async function Header ({ headerTitle, userId } : HeaderProps) {
 
-    <SelectorDiv>
-      <MultipleSelect />
-    </SelectorDiv>
-  </HeaderContainer>
-);
+
+  // const data = await fetch(`http://localhost:3001/users/${userId}`);
+
+  // const res = await data.json()
+
+  // console.log(res);
+
+  return(
+      <HeaderContainer>
+      <HeaderTitle>
+        { headerTitle }
+      </HeaderTitle>
+      <AvatarDiv>
+        <Avatar alt="Foto de Perfil" src="M" sx={{ width:40, height: 40}} />
+        <ProfileInfo>
+          <AvatarNome>xd</AvatarNome> 
+          <AvatarEmail>xd</AvatarEmail>
+        </ProfileInfo>
+      </AvatarDiv>
+
+      <SelectorDiv>
+        <MultipleSelect />
+      </SelectorDiv>
+    </HeaderContainer>
+  )
+}
+  
 
 const HeaderContainer = styled.div(
   ({ theme }) => css`
@@ -132,7 +144,6 @@ const SelectorDiv = styled.div(
  
  `
 )
-
 
 
 export default Header;
