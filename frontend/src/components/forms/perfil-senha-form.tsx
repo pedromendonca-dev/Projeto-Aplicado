@@ -11,6 +11,7 @@ import { useState } from "react";
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput'
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -146,7 +147,6 @@ const ContainerSenha = styled.div(
                             }
                             {...register('confirmarSenha')}
                         />
-
                         <Typography fontSize={14} fontWeight={200} color="#666666" mb={theme.space.s9}>
                             Certifique-se de que tenha pelo menos 8 caracteres, incluindo um número e uma letra minúscula
                         </Typography>
@@ -157,12 +157,7 @@ const ContainerSenha = styled.div(
                             width='80%'
                             >
                                 Atualizar senha
-
                         </Button>
-
-                        
-
-
                     </Column>
                 </Row>   
             </Form>

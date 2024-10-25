@@ -7,9 +7,6 @@ import SideNavbarPerfil from '@/components/side-navbar/index-perfil';
 
 
 
-// AUTENTICAÇÃO
-
-// CHECAR ID
 
 const Perfil = () => {
 

@@ -3,7 +3,6 @@
 import React, { useRef, useState } from 'react';
 import Image from "next/image";
 import styled, { css } from "styled-components";
-
 import { useRouter, usePathname } from 'next/navigation';
 import { sideMenuLinks } from '@/lib/utils/constants/constants';
 

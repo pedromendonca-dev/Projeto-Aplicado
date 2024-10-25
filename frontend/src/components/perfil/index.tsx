@@ -4,21 +4,17 @@ import styled, { css } from "styled-components"
 import { Column } from "../column";
 import { Row } from "../row"
 import { theme } from "@/lib/theme";
-import  Avatar from '@mui/material/Avatar';
 import { Typography , TextField, IconButton} from "@mui/material";
 import Image from "next/image";
 import Estrelas from "@/assets/images/estrelas.png"
-import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
+import PerfilPlaceholder from "@/assets/images/woman1_placeholder.png"
 import { useState } from "react";
-import { Button } from "@mui/material";
 import uploadFile from "@/assets/images/uploadFile.svg"
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 
-// type PerfilData = {
-//     nome: string,
-//     email: string,
-//     photo?: string,
-//   }
+
 
     const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -32,52 +28,48 @@ import uploadFile from "@/assets/images/uploadFile.svg"
     width: 1,
     });
 
-    const CircularImage = styled(Image)`
-        border-radius: 50%;
 
-    `;
 
-    const PerfilContainerPerfil = styled.div(
-        ({ theme }) => css`
-        display: flex;
-        position: relative;
-        z-index: 2;
-        background-color: ${theme.colors.white};
-        width: 80%;
-        height: 800px;
-        padding-top: ${theme.space.s6};
-        padding-left: ${theme.space.s7};
+    export default function PerfilBody() {
 
-        top: 70px;
-        left: 300px;
-        alignItems: center,
+        const userId = 32;
 
-        
-
-        `);
-    
-
-    const PerfilBody = () => {
+        const { data: user, isLoading, isError } = useQuery({
+            queryKey: ['user', userId],
+            queryFn: async () => {
+                const response = await axios.get(`http://localhost:3001/users/${userId}`);
+                return response.data;
+            },
+        });
 
         const [imagePreview, setImagePreview] = useState<string | null>(null);
 
         const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setImagePreview(imageUrl); 
+            const file = event.target.files?.[0];
+            if (file) {
+                const imageUrl = URL.createObjectURL(file);
+                setImagePreview(imageUrl);
+            }
+        };
+
+        if (isLoading) {
+            return <div>Loading...</div>;
         }
-  };
+
+        if (isError) {
+            return <div>Error loading user data.</div>;
+        }
+
 
         return(
-            <>
+                <>
                 <PerfilContainerPerfil>
                     <Column width='100%' height='100%'>
                         <Row width='100%' height='182px' backgroundColor='#AAE6BB' borderRadius={theme.space.s3} />
                             <Row width='900px' height='386px' position='absolute' top='116px' left='186px'>
                                 <Column mr={theme.space.s7}>
                                     <CircularImage 
-                                        src={PerfilPlaceholder} 
+                                        src={imagePreview || PerfilPlaceholder} 
                                         alt="Descrição da imagem" 
                                         width={170} 
                                         height={170}
@@ -96,7 +88,7 @@ import uploadFile from "@/assets/images/uploadFile.svg"
                                 </Column>
                                 <Column width='100%'>
                                     <Typography fontSize={20} fontWeight={600} mt='116px' mb={theme.space.s1} >
-                                        Marianne Gomes
+                                        {user.name}
                                     </Typography>
                                     <Row mb={theme.space.s8} width='100%' justifyContent={'space-between'}>
                                         <Typography fontSize={12} fontWeight={200} color="#333333">
@@ -110,10 +102,13 @@ import uploadFile from "@/assets/images/uploadFile.svg"
                                     </Row>
                                     <TextField
                                         label=""
+                                        defaultValue={user.name}
                                         sx={{ width: '100%', mb: theme.space.s5}}
                                         />
                                     <TextField
                                         label=""
+                                        defaultValue={user.email}
+                                        disabled
                                         sx={{ width: '100%', mb: theme.space.s3}}
                                         />
                                 </Column>
@@ -168,15 +163,37 @@ import uploadFile from "@/assets/images/uploadFile.svg"
                     </Column>
                 </PerfilContainerPerfil>
             </>
-        )
+        );
     }
 
-    
+    const CircularImage = styled(Image)`
+    border-radius: 50%;
+    object-fit: cover;
+
+`;
+
+const PerfilContainerPerfil = styled.div(
+    ({ theme }) => css`
+    display: flex;
+    position: relative;
+    z-index: 2;
+    background-color: ${theme.colors.white};
+    width: 80%;
+    height: 800px;
+    padding-top: ${theme.space.s6};
+    padding-left: ${theme.space.s7};
+
+    top: 70px;
+    left: 300px;
+    alignItems: center,
+
+    `);
+
 
   
 
 
-  export default PerfilBody;
+
 
 
 
