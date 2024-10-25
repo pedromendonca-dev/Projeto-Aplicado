@@ -7,16 +7,27 @@ const colors = {
   black: "#000000",
   green: {
     100: "#4CAF50",
+    200: "#DFFFE8",
+    300: "#2B9D3D",
   },
   gray: {
     100: "#C4C4C4",
     200: "#7F7F7F",
     300: "#353535",
+    400: "#EFEFEF",
   },
   blue: {
     100: "#008CDB",
     200: "#F1F5F7",
   },
+  pink: {
+    100: "#FFDFF9",
+    200: "#A65998"
+  },
+  orange: {
+    100: "#FFE0BD",
+    200: "#8E671C",
+  }
 };
 
 const space = {
