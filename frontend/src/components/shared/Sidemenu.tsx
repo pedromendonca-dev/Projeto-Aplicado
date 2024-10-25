@@ -46,7 +46,7 @@ const AsideLayout = styled.aside(
     color: ${theme.colors.black};
     background-color: ${theme.colors.white};
     padding: 1.25rem;
-    border-right: 2px solid #D8D8D8;
+    border-right: 2px solid ${theme.colors.gray[400]};
     `
   );
 

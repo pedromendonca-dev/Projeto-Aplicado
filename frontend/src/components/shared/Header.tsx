@@ -3,24 +3,18 @@
 import styled, { css } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { Avatar, Typography } from "@mui/material";
-
 import axios from "axios";
 import { Row } from "../row";
 import { Column } from "../column";
 import { theme } from "@/lib/theme";
 import MultipleSelect from "../select-header";
 
-
-
-
-
 export default function Header() {
-
 
   const { data : user, isLoading, isError } = useQuery({
     queryKey: ['user', 31],
     queryFn: async () => {
-      const response = await axios.get('http://localhost:3001/users/31'); 
+      const response = await axios.get('http://localhost:3001/users/31');
       return response.data; 
     },
   });
@@ -66,11 +60,13 @@ const HeaderLayout = styled.header(
   ({ theme }) => css`
     grid-area: header;
     background-color: ${theme.colors.white};
+
     padding-right: ${theme.space.s5};
     padding-left: ${theme.space.s5};
     padding-top: ${theme.space.s5};
     padding-bottom: ${theme.space.s4};
-    border-bottom: 2px solid #D8D8D8;
+
+    border-bottom: 2px solid ${theme.colors.gray[400]};
   `
 );
 
@@ -78,6 +74,7 @@ const FlexBox = styled.div(
   ({ theme }) => css`
   display: flex;
   flex-direction: column;
+
   gap: 5px;
 
   height: 100%;

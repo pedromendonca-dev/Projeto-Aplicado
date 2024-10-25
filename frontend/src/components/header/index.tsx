@@ -1,25 +1,19 @@
 
 import { Avatar } from "@mui/material";
 import styled, { css } from "styled-components";
-import MultipleSelect from "../select-header";
-import PerfilPlaceholder from "@/assets/images/perfil_placeholder.jpeg"
+import MultipleSelect from "../select-header";  
 
 type HeaderProps = {
   userId: number,
   headerTitle: string,
 }
 
-// Adicionar e vincular os dados de perfil -> Header
+
 
 
 export async function Header ({ headerTitle, userId } : HeaderProps) {
 
 
-  // const data = await fetch(`http://localhost:3001/users/${userId}`);
-
-  // const res = await data.json()
-
-  // console.log(res);
 
   return(
       <HeaderContainer>

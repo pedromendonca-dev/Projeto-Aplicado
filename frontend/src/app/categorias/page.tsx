@@ -2,13 +2,12 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import Image from "next/image";
 import { Button, Typography } from "@mui/material";
 import { Column } from "@/components";
 import { theme } from "@/lib/theme";
 import styled, { css } from "styled-components";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 
 export default function MainBody() {
@@ -22,6 +21,7 @@ export default function MainBody() {
       return response.data;
     },
   });
+
 
   if (isLoading) {
     return <div>Loading...</div>;

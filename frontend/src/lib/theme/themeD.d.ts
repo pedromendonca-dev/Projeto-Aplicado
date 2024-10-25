@@ -16,6 +16,7 @@ interface ThemeColors {
     "100": string;
     "200": string;
     "300": string;
+    "400": string;
   };
   blue: {
     "100": string;
