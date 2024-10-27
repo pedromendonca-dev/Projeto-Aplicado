@@ -6,15 +6,14 @@ import styled, { css } from "styled-components";
 import { theme } from "@/lib/theme";
 import { Row } from "@/components/row";
 import Image from "next/image";
-import { Typography } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
-
 import ProfissionalPhoto from "@/assets/images/profissional_exemplo.png";
 import Galeria1 from "@/assets/images/galeria_1.png";
 import Galeria2 from "@/assets/images/galeria_2.png";
 import Galeria3 from "@/assets/images/galeria_1.png";
-import { wrap } from "module";
+import ratings from "@/assets/images/estrelas.png";
 
 const Detalhes = () => {
   const galeria = [Galeria1, Galeria2, Galeria3];
@@ -368,6 +367,85 @@ const Detalhes = () => {
                 reagendados até 12 horas antes do horário marcado sem custos
                 adicionais.
               </Typography>
+            </Column>
+          </Row>
+          {/* Feedback */}
+          <Row
+            width="82%"
+            height="402px"
+            backgroundColor={theme.colors.white}
+            border="1px solid #E7E7E7"
+            marginBottom={theme.space.s4}
+            flexShrink="true"
+          >
+            <Column width="100%" padding={theme.space.s8}>
+              <Typography
+                fontSize={16}
+                fontWeight={600}
+                marginBottom={theme.space.s4}
+              >
+                Feedbacks
+              </Typography>
+              <Row
+                width="92%"
+                height="86px"
+                padding="32px 24px 32px 24px"
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                borderBottom={"1px solid #EFEFEF"}
+              >
+                <Avatar />
+                <Column
+                  marginLeft={theme.space.s5}
+                  marginBottom={theme.space.s2}
+                  flex="1"
+                >
+                  <Typography fontSize={16} fontWeight={600}>
+                    João M.
+                  </Typography>
+                  <Typography fontSize={14} fontWeight={100}>
+                    "Ana foi fantástica! Minha casa nunca esteve tão limpa."
+                  </Typography>
+                </Column>
+                <Image src={ratings} alt={"rating"} />
+              </Row>
+              <Row
+                width="92%"
+                height="86px"
+                padding="32px 24px 32px 24px"
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                borderBottom={"1px solid #EFEFEF"}
+              >
+                <Avatar />
+                <Column marginLeft={theme.space.s5} flex="1">
+                  <Typography fontSize={16} fontWeight={600}>
+                    João M.
+                  </Typography>
+                  <Typography fontSize={14} fontWeight={100}>
+                    "Ana foi fantástica! Minha casa nunca esteve tão limpa."
+                  </Typography>
+                </Column>
+                <Image src={ratings} alt={"rating"} />
+              </Row>
+              <Row
+                width="92%"
+                height="86px"
+                padding="32px 24px 32px 24px"
+                alignItems={"center"}
+                justifyContent={"space-between"}
+              >
+                <Avatar />
+                <Column marginLeft={theme.space.s5} flex="1">
+                  <Typography fontSize={16} fontWeight={600}>
+                    João M.
+                  </Typography>
+                  <Typography fontSize={14} fontWeight={100}>
+                    "Ana foi fantástica! Minha casa nunca esteve tão limpa."
+                  </Typography>
+                </Column>
+                <Image src={ratings} alt={"rating"} />
+              </Row>
             </Column>
           </Row>
         </Column>
