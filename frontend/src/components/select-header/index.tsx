@@ -52,7 +52,7 @@ export default function MultipleSelect() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 230 }}>
+      <FormControl sx={{ width: 230 }}>
         <InputLabel id="demo-multiple-name-label" sx={{ fontSize: '12px', fontWeight: '800'}}>Filtro:</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
