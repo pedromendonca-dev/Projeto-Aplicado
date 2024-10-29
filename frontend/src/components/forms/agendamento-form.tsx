@@ -1,49 +1,31 @@
-import { useRouter } from "next/navigation";
-
 import { useForm } from "react-hook-form";
-import styled, { css } from "styled-components";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { TextField, Typography } from "@mui/material";
-import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
-
 import Form from "./base-form";
 import { Row, Column, Button } from "@/components";
-
+import styled from "styled-components";
+import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import { theme } from "@/lib/theme";
-import type { AgendamentoForm } from "@/lib/schemas/agendamento";
-
-const Container = styled.div(
-  ({ theme }) => css`
-    position: absolute;
-    display: block grid;
-    z-index: 1;
-
-    top: 180px;
-    left: 300px;
-
-    height: calc(100% - 180px);
-    width: calc(100% - 300px);
-
-    background-color: ${theme.colors.blue[200]};
-  `
-);
+import { AgendamentoProps } from "@/lib/interface/agendamento";
+import {
+  agendamentoFormSchema,
+  AgendamentoFormType,
+} from "@/lib/schemas/agendamento";
 
 const AgendamentoForm = () => {
-  const router = useRouter();
-
   const {
     handleSubmit,
     register,
     formState: { isValid },
-  } = useForm<AgendamentoForm>({
+  } = useForm<AgendamentoFormType>({
     mode: "all",
-    //resolver: zodResolver(agendamentoFormSchema)
+    resolver: zodResolver(agendamentoFormSchema),
   });
 
-  const agendamentoSubmit = (data: any) => {
+  const agendamentoSubmit = (data: AgendamentoProps) => {
     console.log(data);
   };
 
-  //border-width: 1px; border-color: #C5C5C5; border-style: solid;
   return (
     <Container>
       <Form onSubmit={handleSubmit(agendamentoSubmit)}>
@@ -58,10 +40,10 @@ const AgendamentoForm = () => {
             marginTop={theme.space.s11}
             backgroundColor={theme.colors.white}
           >
-            <Column marginBottom="s3">
+            <Column marginBottom="s2">
               <Typography
                 fontSize={18}
-                fontWeight={500}
+                fontWeight={550}
                 color={theme.colors.black}
               >
                 Serviços
@@ -69,7 +51,7 @@ const AgendamentoForm = () => {
             </Column>
 
             <Column height="100%" width="95%" marginBottom="s3">
-              <FormControl fullWidth sx={{ mb: 2, width: "56vh" }}>
+              <FormControl fullWidth sx={{ mb: 2, mt: 1, width: "56vh" }}>
                 <InputLabel>Selecione os serviços que deseja</InputLabel>
                 <Select
                   label="Selecione os serviços que deseja"
@@ -82,7 +64,7 @@ const AgendamentoForm = () => {
               </FormControl>
               <Typography
                 fontSize={18}
-                fontWeight={500}
+                fontWeight={550}
                 color={theme.colors.black}
                 marginBottom="s4"
               >
@@ -90,12 +72,12 @@ const AgendamentoForm = () => {
               </Typography>
               <TextField
                 label=""
-                sx={{ mb: 2, mt: 1 }}
+                sx={{ mb: 2, mt: 2 }}
                 {...register("titulo")}
               />
               <Typography
                 fontSize={18}
-                fontWeight={500}
+                fontWeight={550}
                 color={theme.colors.black}
                 marginBottom="s4"
               >
@@ -114,20 +96,45 @@ const AgendamentoForm = () => {
         </Row>
 
         <Row
-          width="100%"
-          height="16vh"
+          width="88%"
+          height="10vh"
+          alignItems="center"
           justifyContent="flex-end"
-          marginTop={theme.space.s5}
+          mt={theme.space.s4}
+          pr={theme.space.s8}
         >
-          <Column width="51%">
-            <Button mt="s2" width={"64vh"}>
-              Continuar Agendamento
-            </Button>
-          </Column>
+          <Typography fontSize="14" fontWeight={600} mr={theme.space.s7}>
+            Cancelar
+          </Typography>
+
+          <Button
+            disabled={isValid}
+            px={theme.space.s8}
+            py={theme.space.s4}
+            fontSize={"12px"}
+          >
+            Continuar Agendamento
+          </Button>
         </Row>
       </Form>
     </Container>
   );
 };
+
+const Container = styled.div(
+  ({ theme }) => `
+    position: absolute;
+    display: grid;
+    z-index: 1;
+
+    top: 180px;
+    left: 300px;
+
+    height: calc(100% - 180px);
+    width: calc(100% - 300px);
+
+    background-color: ${theme.colors.blue[200]};
+  `
+);
 
 export default AgendamentoForm;
