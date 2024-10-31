@@ -10,43 +10,64 @@ import { theme } from "@/lib/theme";
 import MultipleSelect from "../select-header";
 
 export default function Header() {
-
-  const { data : user, isLoading, isError } = useQuery({
-    queryKey: ['user', 31],
+  const {
+    data: user,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["user", 32],
     queryFn: async () => {
-      const response = await axios.get('http://localhost:3001/users/31');
-      return response.data; 
+      const response = await axios.get("http://localhost:3001/users/32");
+      return response.data;
     },
   });
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   if (isError) {
     return <div>Error loading user data.</div>;
   }
 
-  
   return (
     <HeaderLayout>
       <FlexBox>
         <ContainerInfo>
-            <Row display='flex' mt={theme.space.s1}>
-            <Avatar alt="Foto de Perfil" src="M" sx={{ width:40, height: 40}} />
-              <Column ml={theme.space.s2} mr={theme.space.s1}>
-                <Typography fontSize={theme.space.s3} color={theme.colors.black} fontWeight={600} mb={theme.space.s1} letterSpacing={0.8}>
-                  {user.name}
-                </Typography>
-                <Typography fontSize={10} color='#333333' fontWeight={500} letterSpacing={0.8}>
-                  {user.email}
-                </Typography>
+          <Row display="flex" mt={theme.space.s1}>
+            <Avatar
+              alt="Foto de Perfil"
+              src="M"
+              sx={{ width: 40, height: 40 }}
+            />
+            <Column ml={theme.space.s2} mr={theme.space.s1}>
+              <Typography
+                fontSize={theme.space.s3}
+                color={theme.colors.black}
+                fontWeight={600}
+                mb={theme.space.s1}
+                letterSpacing={0.8}
+              >
+                {user.name}
+              </Typography>
+              <Typography
+                fontSize={10}
+                color="#333333"
+                fontWeight={500}
+                letterSpacing={0.8}
+              >
+                {user.email}
+              </Typography>
             </Column>
-            </Row>
+          </Row>
         </ContainerInfo>
         <ContainerText>
-          <Typography fontSize='20px' color={theme.colors.black} fontWeight={600} ml={theme.space.s1} >
-              Categorias
+          <Typography
+            fontSize="20px"
+            color={theme.colors.black}
+            fontWeight={600}
+            ml={theme.space.s1}
+          >
+            Categorias
           </Typography>
           <MultipleSelect />
         </ContainerText>
@@ -54,7 +75,6 @@ export default function Header() {
     </HeaderLayout>
   );
 }
-
 
 const HeaderLayout = styled.header(
   ({ theme }) => css`
@@ -72,39 +92,34 @@ const HeaderLayout = styled.header(
 
 const FlexBox = styled.div(
   ({ theme }) => css`
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-  gap: 5px;
+    gap: 5px;
 
-  height: 100%;
-  width: 100%;
-
-`
+    height: 100%;
+    width: 100%;
+  `
 );
-
 
 const ContainerInfo = styled.div(
   ({ theme }) => css`
-  display: flex;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 
-  height: 42px;
-  width: 100%;
-
-`
+    height: 42px;
+    width: 100%;
+  `
 );
 
 const ContainerText = styled.div(
   ({ theme }) => css`
-  display: flex;
-  flex: 1;
+    display: flex;
+    flex: 1;
 
-  width: 100%;
+    width: 100%;
 
-  align-items: flex-end;
-  justify-content: space-between;
-
-
-`
+    align-items: flex-end;
+    justify-content: space-between;
+  `
 );
