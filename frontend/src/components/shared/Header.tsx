@@ -8,16 +8,19 @@ import { Row } from "../row";
 import { Column } from "../column";
 import { theme } from "@/lib/theme";
 import MultipleSelect from "../select-header";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
+
   const {
     data: user,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user", 32],
+    queryKey: ["user", 45],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3001/users/32");
+      const response = await axios.get("http://localhost:3001/users/45");
       return response.data;
     },
   });
@@ -39,7 +42,11 @@ export default function Header() {
               src="M"
               sx={{ width: 40, height: 40 }}
             />
-            <Column ml={theme.space.s2} mr={theme.space.s1}>
+            <Column
+              ml={theme.space.s2}
+              mr={theme.space.s1}
+              onClick={() => router.push("/perfil")}
+            >
               <Typography
                 fontSize={theme.space.s3}
                 color={theme.colors.black}

@@ -9,6 +9,7 @@ import Image from "next/image";
 
 import Left from "@/assets/images/left.svg";
 
+import { useRouter } from "next/navigation";
 
 const ContainerHead = styled(Container)(({ theme }) => ({
 
@@ -32,12 +33,14 @@ const ContainerHead = styled(Container)(({ theme }) => ({
 
 
 const HeaderPerfil = () => {
+    const router = useRouter()
+
     return (
         <ContainerHead 
         disableGutters
         maxWidth={false}
         >
-            <Button type="button" variant="arrow_back_button" height={'40px'} width={'40px'} justifyContent="center" alignItems="center" marginY={theme.space.s3} marginLeft={theme.space.s5}>
+            <Button type="button" variant="arrow_back_button" height={'40px'} width={'40px'} justifyContent="center" alignItems="center" marginY={theme.space.s3} marginLeft={theme.space.s5} onClick={() => router.push("/categorias")}>
                 <Image src={Left} alt="botão-de-voltar" />
             </Button>
         
