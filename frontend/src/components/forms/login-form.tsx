@@ -165,13 +165,13 @@ const LoginForm = () => {
                 }
                 sx={{ marginRight: 0 }}
               />
-              <Typography
+              {/* <Typography
                 fontSize="12px"
                 sx={{ color: theme.colors.blue[100] }}
                 onClick={() => route.push("/forgot-password")}
               >
                 Esqueci minha senha
-              </Typography>
+              </Typography> */}
             </Row>
             <Button mb="s3" disabled={!isValid}>
               Entrar
