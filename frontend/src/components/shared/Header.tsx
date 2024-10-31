@@ -15,9 +15,9 @@ export default function Header() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user", 31],
+    queryKey: ["user", 32],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3001/users/31");
+      const response = await axios.get("http://localhost:3001/users/32");
       return response.data;
     },
   });
