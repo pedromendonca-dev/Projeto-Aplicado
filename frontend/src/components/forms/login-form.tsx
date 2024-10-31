@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   TextField,
   Typography,
@@ -15,20 +17,21 @@ import {
 import Form from "./base-form";
 import { Row, Column, Button } from "@/components";
 
+import { theme } from "@/lib/theme";
 import { LoginProps } from "@/lib/interface/login";
-
 import type { LoginForm } from "@/lib/schemas/login";
 import { loginFormSchema } from "@/lib/schemas/login";
-
-import { theme } from "@/lib/theme";
+import { getAllUsers } from "@/lib/services/client/users";
 
 import Google from "@/assets/images/google.svg";
 import Banner from "@/assets/images/login-banner.svg";
-import { getAllUsers } from "@/lib/services/client/users";
-import { useQuery } from "@tanstack/react-query";
+
+interface UserProps {
+  email: string;
+  password: string;
+}
 
 const LoginForm = () => {
-  
   const route = useRouter();
 
   const {
@@ -42,15 +45,21 @@ const LoginForm = () => {
 
   const { data: users } = useQuery({
     queryKey: ["getAllUsers"],
-    queryFn: () => {
-      return getAllUsers();
-    },
+    queryFn: () => getAllUsers(),
+    select: ({ data }) => data,
   });
 
-  console.log(users)
-
   const loginSubmit = (data: LoginProps) => {
-    console.log(data);
+    const filterLogin = users.filter(
+      (item: UserProps) =>
+        item.email === data.email && item.password == data.password
+    )?.[0];
+
+    if (!filterLogin) {
+      return toast.error("Usuário não encontrado");
+    } else {
+      return route.push("/categorias");
+    }
   };
 
   return (
@@ -160,11 +169,7 @@ const LoginForm = () => {
                 Esqueci minha senha
               </Typography>
             </Row>
-            <Button
-              mb="s3"
-              disabled={!isValid}
-              onClick={() => route.push("/categorias")}
-            >
+            <Button mb="s3" disabled={!isValid}>
               Entrar
             </Button>
             <Button type="button" variant="google">
