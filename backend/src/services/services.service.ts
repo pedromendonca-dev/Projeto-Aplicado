@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
 
 @Injectable()
-export class CategorysService {
+export class ServicesService {
   constructor(private readonly supabaseService: SupabaseService) {}
 
   async create(user: any) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('services')
       .insert([user])
       .select();
 
@@ -18,7 +18,7 @@ export class CategorysService {
   async findAll() {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('services')
       .select('*');
     return { data, error };
   }
@@ -26,7 +26,7 @@ export class CategorysService {
   async findOne(id: number) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('services')
       .select('*')
       .eq('id', id)
       .single();
@@ -36,7 +36,7 @@ export class CategorysService {
   async update(id: number, user: any) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('services')
       .update(user)
       .eq('id', id);
     return { data, error };
@@ -45,7 +45,7 @@ export class CategorysService {
   async remove(id: number) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('services')
       .delete()
       .eq('id', id);
 
