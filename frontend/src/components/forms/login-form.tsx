@@ -26,7 +26,7 @@ import { getAllUsers } from "@/lib/services/client/users";
 import Google from "@/assets/images/google.svg";
 import Banner from "@/assets/images/login-banner.svg";
 
-interface UserProps {
+export interface UserProps {
   email: string;
   password: string;
 }
