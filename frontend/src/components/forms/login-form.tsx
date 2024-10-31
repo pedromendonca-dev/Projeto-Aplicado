@@ -62,6 +62,10 @@ const LoginForm = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    window.open("http://localhost:3001/auth/google", "_self");
+  };
+
   return (
     <Row
       width="100%"
@@ -172,7 +176,7 @@ const LoginForm = () => {
             <Button mb="s3" disabled={!isValid}>
               Entrar
             </Button>
-            <Button type="button" variant="google">
+            <Button type="button" variant="google" onClick={handleGoogleSignIn}>
               <Image src={Google} alt="google-image" /> Entrar com o Google
             </Button>
             <Row m="0 auto" mt="s3">
