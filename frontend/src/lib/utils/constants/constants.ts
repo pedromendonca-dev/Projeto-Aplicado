@@ -7,6 +7,8 @@ import Services from "@/assets/images/services.svg"
 import MeuAgendamento from "@/assets/images/agendamento.svg"
 
 
+
+
 export type sideMenuType = {
     name: string,
     path: string,
@@ -25,6 +27,18 @@ export const sideMenuLinks = [
     { name: 'Meus Agendamentos', path: '/agendamento/inicial', icon: MeuAgendamento },
   ]
 
+  export const professionalMenuLinks = [
+    {
+      path: '/propostas',
+      name: 'Propostas',
+      icon: Notification, 
+    },
+    {
+      path: '/perfilProfissional',
+      name: 'Meu Perfil',
+      icon: Costumer, 
+    },
+  ];
 
 //  <NavItem onClick={(handleClick)} href="#perfil" autoFocus={(focus)}>
 //   <Image style={{ marginRight: 24 }} src={Costumer} alt="Categorias" />  
