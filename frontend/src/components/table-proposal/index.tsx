@@ -20,9 +20,9 @@ const ActionText = styled.span<{ color: string }>`
 
   &:hover {
     color: ${({ color }) =>
-      color === "lightgreen"
+      color === "#00A12D"
         ? "#00cc00"
-        : color === "lightcoral"
+        : color === "#DB0000"
         ? "#ff5c5c"
         : "darkblue"};
     text-decoration: underline;
@@ -116,8 +116,8 @@ const ProfessionalTable = () => {
                   <ActionText color="blue" onClick={() => alert("Entrar em contato")}>Entrar em contato</ActionText>
                 ) : (
                   <>
-                    <ActionText color="lightgreen" onClick={() => handleAccept(row.id)}>Aceitar</ActionText>
-                    <ActionText color="lightcoral" onClick={() => alert("Recusar proposta")}>Recusar</ActionText>
+                    <ActionText color="#00A12D" onClick={() => handleAccept(row.id)}>Aceitar</ActionText>
+                    <ActionText color="#DB0000" onClick={() => alert("Recusar proposta")}>Recusar</ActionText>
                   </>
                 )}
                 <ActionText color="blue" onClick={() => handleDetailsClick(row.id)}>Detalhes</ActionText>

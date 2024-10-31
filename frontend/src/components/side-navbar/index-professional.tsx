@@ -59,7 +59,7 @@ const NavItem = styled(({ isActive, ...rest }: { isActive: boolean } & React.Anc
     display: flex;
     align-items: center;
     width: calc(100% - 32px);
-    padding: ${theme.space.s3} ${theme.space.s3}; // Ajusta o padding
+    padding: ${theme.space.s3} ${theme.space.s3};
     margin: 4px 16px;
     font-size: ${theme.space.s3};
     color: ${theme.colors.black};

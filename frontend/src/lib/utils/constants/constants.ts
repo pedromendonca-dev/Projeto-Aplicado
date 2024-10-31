@@ -29,12 +29,12 @@ export const sideMenuLinks = [
 
   export const professionalMenuLinks = [
     {
-      path: '/proposal',
+      path: '/propostas',
       name: 'Propostas',
       icon: Notification, 
     },
     {
-      path: '/my-profile',
+      path: '/perfilProfissional',
       name: 'Meu Perfil',
       icon: Costumer, 
     },
