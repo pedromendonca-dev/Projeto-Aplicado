@@ -55,4 +55,15 @@ export class UsersService {
 
     return { data };
   }
+
+  async findByEmail(email: string) {
+    const { data, error } = await this.supabaseService
+      .getClient()
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .single();
+
+    return { data, error };
+  }
 }

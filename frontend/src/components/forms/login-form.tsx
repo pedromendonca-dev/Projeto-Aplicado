@@ -26,7 +26,7 @@ import { getAllUsers } from "@/lib/services/client/users";
 import Google from "@/assets/images/google.svg";
 import Banner from "@/assets/images/login-banner.svg";
 
-interface UserProps {
+export interface UserProps {
   email: string;
   password: string;
 }
@@ -60,6 +60,10 @@ const LoginForm = () => {
     } else {
       return route.push("/categorias");
     }
+  };
+
+  const handleGoogleSignIn = async () => {
+    window.open("http://localhost:3001/auth/google", "_self");
   };
 
   return (
@@ -172,7 +176,7 @@ const LoginForm = () => {
             <Button mb="s3" disabled={!isValid}>
               Entrar
             </Button>
-            <Button type="button" variant="google">
+            <Button type="button" variant="google" onClick={handleGoogleSignIn}>
               <Image src={Google} alt="google-image" /> Entrar com o Google
             </Button>
             <Row m="0 auto" mt="s3">
