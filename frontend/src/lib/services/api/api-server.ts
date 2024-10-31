@@ -1,24 +1,22 @@
 import axios from "axios";
-import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
-
-import { sessionOptions, SessionData } from "@/lib/utils/iron-session";
 
 const apiServer = axios.create({
   baseURL: process.env.BACKEND_API_URL,
 });
 
+apiServer.interceptors.request.use((config) => {
+  if (config.data instanceof FormData) {
+    config.headers["Content-Type"] = "multipart/form-data";
+  }
+  return config;
+});
+
 apiServer.interceptors.request.use(
   async (config) => {
-    const session = await getIronSession<SessionData>(
-      cookies(),
-      sessionOptions
-    );
-    const token = session.token;
+    const token = cookies().get("authToken")?.value;
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    config.headers.Authorization = `Bearer ${token}`;
 
     return config;
   },
@@ -28,8 +26,19 @@ apiServer.interceptors.request.use(
 );
 
 apiServer.interceptors.response.use(
-  (response) => response.data.data,
-  (error) => Promise.reject(error.response.data)
+  (response) => (response.data.data ? response.data.data : response),
+  (error) => {
+    if (error.response) {
+      return Promise.reject({
+        statusCode: error.response.status,
+        message: error.response.data.message || "Erro desconhecido",
+      });
+    }
+    return Promise.reject({
+      statusCode: 500,
+      message: "Erro desconhecido",
+    });
+  }
 );
 
 export { apiServer };
