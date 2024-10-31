@@ -6,7 +6,14 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TextField, Typography } from "@mui/material";
+import {
+  TextField,
+  Typography,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 
 import { theme } from "@/lib/theme";
 import { RegisterProps } from "@/lib/interface/register";
@@ -15,12 +22,13 @@ import type { RegisterForm } from "@/lib/schemas/register";
 import { registerFormSchema } from "@/lib/schemas/register";
 
 import Form from "./base-form";
+import { UserProps } from "./login-form";
+
 import { Row, Column, Button } from "@/components";
 
 import Google from "@/assets/images/google.svg";
 import RegisterBanner from "@/assets/images/register-banner.svg";
 import { getAllUsers } from "@/lib/services/client/users";
-import { UserProps } from "./login-form";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -84,11 +92,15 @@ const RegisterForm = () => {
               {...register("email")}
             />
             <TextField label="Telefone" sx={{ mb: 2 }} {...register("phone")} />
-            <TextField
-              label="Tipo de usuário"
-              sx={{ mb: 2 }}
-              {...register("type_user")}
-            />
+
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <InputLabel>Tipo de usuário</InputLabel>
+              <Select {...register("type_user")} label="Tipo de usuário">
+                <MenuItem value="client">Cliente</MenuItem>
+                <MenuItem value="professional">Profissional</MenuItem>
+              </Select>
+            </FormControl>
+
             <TextField
               label="Senha"
               type="password"
