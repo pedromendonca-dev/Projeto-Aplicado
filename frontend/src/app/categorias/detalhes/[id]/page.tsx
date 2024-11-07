@@ -8,7 +8,7 @@ import CategoriesTable from "@/components/table-categories";
 
 const DetalhesCategoria = () => {
   return (
-    <Layout>
+    <Layout header='Listagem de Profissionais'>
       <Column width="100%" height="100%" padding="30px">
         <CategoriesTable />
       </Column>

@@ -2,17 +2,14 @@
 
 import FinalizarAgendamento from "@/components/forms/agendamento-finalizar-form";
 
-import Header from "@/components/header";
-import Aside from "@/components/shared/Sidemenu";
+import Layout from "@/components/layout/Layout";
 import React from "react";
 
 const AgendamentoFinal = () => {
   return (
-    <>
-      <Header headerTitle="Finalizar Agendamento" />
-      <Aside />
+    <Layout header='Finalizar agendamento'>
       <FinalizarAgendamento />
-    </>
+    </Layout>
   );
 };
 

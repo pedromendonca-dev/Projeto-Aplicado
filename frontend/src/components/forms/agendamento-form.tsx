@@ -9,6 +9,7 @@ import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import { theme } from "@/lib/theme";
 import { AgendamentoProps } from "@/lib/interface/agendamento";
 import { AgendamentoFormType } from "@/lib/schemas/agendamento";
+import { useRouter } from "next/navigation";
 
 const AgendamentoForm = () => {
   const {
@@ -23,6 +24,8 @@ const AgendamentoForm = () => {
   const agendamentoSubmit = (data: AgendamentoProps) => {
     console.log(data);
   };
+
+  const router = useRouter();
 
   return (
     <Container>
@@ -105,7 +108,12 @@ const AgendamentoForm = () => {
             Cancelar
           </Typography>
 
-          <Button px={theme.space.s8} py={theme.space.s4} fontSize={"12px"} onClick={() => router.push('/agendamento/finalizar')}>
+          <Button
+            px={theme.space.s8}
+            py={theme.space.s4}
+            fontSize={"12px"}
+            onClick={() => router.push("/agendamento/finalizar")}
+          >
             Continuar Agendamento
           </Button>
         </Row>
