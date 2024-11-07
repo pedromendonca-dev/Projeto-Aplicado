@@ -14,6 +14,7 @@ import Galeria1 from "@/assets/images/galeria_1.png";
 import Galeria2 from "@/assets/images/galeria_2.png";
 import Galeria3 from "@/assets/images/galeria_1.png";
 import ratings from "@/assets/images/estrelas.png";
+import Layout from "@/components/layout/Layout";
 
 const Detalhes = () => {
   const galeria = [Galeria1, Galeria2, Galeria3];
@@ -40,7 +41,7 @@ const Detalhes = () => {
   };
 
   return (
-    <>
+    <Layout header="Detalhes do Profissional">
       <FlexBox>
         <Column width="100%" height="260vh">
           <Row
@@ -450,7 +451,7 @@ const Detalhes = () => {
           </Row>
         </Column>
       </FlexBox>
-    </>
+    </Layout>
   );
 };
 

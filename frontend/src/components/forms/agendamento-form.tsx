@@ -1,5 +1,6 @@
+"use client";
+
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { TextField, Typography } from "@mui/material";
 import Form from "./base-form";
 import { Row, Column, Button } from "@/components";
@@ -7,10 +8,7 @@ import styled from "styled-components";
 import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import { theme } from "@/lib/theme";
 import { AgendamentoProps } from "@/lib/interface/agendamento";
-import {
-  agendamentoFormSchema,
-  AgendamentoFormType,
-} from "@/lib/schemas/agendamento";
+import { AgendamentoFormType } from "@/lib/schemas/agendamento";
 
 const AgendamentoForm = () => {
   const {
@@ -19,7 +17,7 @@ const AgendamentoForm = () => {
     formState: { isValid },
   } = useForm<AgendamentoFormType>({
     mode: "all",
-    resolver: zodResolver(agendamentoFormSchema),
+    // resolver: zodResolver(agendamentoFormSchema),
   });
 
   const agendamentoSubmit = (data: AgendamentoProps) => {
@@ -107,12 +105,7 @@ const AgendamentoForm = () => {
             Cancelar
           </Typography>
 
-          <Button
-            disabled={isValid}
-            px={theme.space.s8}
-            py={theme.space.s4}
-            fontSize={"12px"}
-          >
+          <Button px={theme.space.s8} py={theme.space.s4} fontSize={"12px"} onClick={() => router.push('/agendamento/finalizar')}>
             Continuar Agendamento
           </Button>
         </Row>

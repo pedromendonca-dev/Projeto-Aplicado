@@ -8,11 +8,12 @@ import { Row } from "../row";
 import { Column } from "../column";
 import { theme } from "@/lib/theme";
 import MultipleSelect from "../select-header";
-import { useRouter } from "next/navigation";
 
-export default function Header() {
-  const router = useRouter();
+interface HeaderProps {
+  name: string;
+}
 
+export default function Header({ name = 'Categorias' }: HeaderProps) {
   const {
     data: user,
     isLoading,
@@ -71,7 +72,7 @@ export default function Header() {
               fontWeight={600}
               ml={theme.space.s1}
             >
-              Categorias
+              {name}
             </Typography>
             <MultipleSelect />
           </ContainerText>

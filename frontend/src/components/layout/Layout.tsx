@@ -1,26 +1,27 @@
 "use client";
 
-import styled, { css } from "styled-components";
-import Header from "@/components/shared/Header";
-import Aside from "@/components/shared/Sidemenu";
+import styled from "styled-components";
+import Aside from "../shared/Sidemenu";
+import Header from "../shared/Header";
+import { ReactNode } from "react";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+interface LayoutProps {
+  children: ReactNode;
+  header?: string;
+}
+
+const Layout = ({ children, header = "Categorias" }: LayoutProps) => {
   return (
     <BodyContainer>
-      <Header />
+      <Header name={header} />
       <Aside />
       <MainLayout>{children}</MainLayout>
     </BodyContainer>
   );
-}
+};
 
 const BodyContainer = styled.div(
-    
-  ({ theme }) => css`
+  ({ theme }) => `
     color: ${theme.colors.black};
     font-size: 1rem;
 
@@ -31,16 +32,17 @@ const BodyContainer = styled.div(
     grid-template-columns: 273px 1fr;
     grid-template-rows: 180px 1fr;
     grid-template-areas:
-      'sidemenu header'
-      'sidemenu main';
+      "sidemenu header"
+      "sidemenu main";
   `
 );
 
 const MainLayout = styled.main(
-  ({ theme }) => css`
-    grid-area: main; 
+  ({ theme }) => `
+    grid-area: main;
     color: ${theme.colors.black};
     font-size: 1rem;
     background-color: ${theme.colors.blue[200]};
   `
 );
+export default Layout;
