@@ -8,7 +8,7 @@ export class CategorysService {
   async create(user: any) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('categories')
       .insert([user])
       .select();
 
@@ -18,7 +18,7 @@ export class CategorysService {
   async findAll() {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('categories')
       .select('*');
     return { data, error };
   }
@@ -26,7 +26,7 @@ export class CategorysService {
   async findOne(id: number) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('categories')
       .select('*')
       .eq('id', id)
       .single();
@@ -36,7 +36,7 @@ export class CategorysService {
   async update(id: number, user: any) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('categories')
       .update(user)
       .eq('id', id);
     return { data, error };
@@ -45,7 +45,7 @@ export class CategorysService {
   async remove(id: number) {
     const { data, error } = await this.supabaseService
       .getClient()
-      .from('categorys')
+      .from('categories')
       .delete()
       .eq('id', id);
 

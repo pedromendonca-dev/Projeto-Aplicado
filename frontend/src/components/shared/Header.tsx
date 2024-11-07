@@ -18,9 +18,11 @@ export default function Header() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user", 45],
+    queryKey: ["user", localStorage.getItem("userId")],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3001/users/45");
+      const response = await axios.get(
+        `http://localhost:3001/users/${localStorage.getItem("userId")}`
+      );
       return response.data;
     },
   });
@@ -30,57 +32,52 @@ export default function Header() {
   }
   if (isError) {
     return <div>Error loading user data.</div>;
-  }
-
-  return (
-    <HeaderLayout>
-      <FlexBox>
-        <ContainerInfo>
-          <Row display="flex" mt={theme.space.s1}>
-            <Avatar
-              alt="Foto de Perfil"
-              src="M"
-              sx={{ width: 40, height: 40 }}
-            />
-            <Column
-              ml={theme.space.s2}
-              mr={theme.space.s1}
-              onClick={() => router.push("/perfil")}
+  } else
+    return (
+      <HeaderLayout>
+        <FlexBox>
+          <ContainerInfo>
+            <Row display="flex" mt={theme.space.s1}>
+              <Avatar
+                alt="Foto de Perfil"
+                src="M"
+                sx={{ width: 40, height: 40 }}
+              />
+              <Column ml={theme.space.s2} mr={theme.space.s1}>
+                <Typography
+                  fontSize={theme.space.s3}
+                  color={theme.colors.black}
+                  fontWeight={600}
+                  mb={theme.space.s1}
+                  letterSpacing={0.8}
+                >
+                  {user.name}
+                </Typography>
+                <Typography
+                  fontSize={10}
+                  color="#333333"
+                  fontWeight={500}
+                  letterSpacing={0.8}
+                >
+                  {user.email}
+                </Typography>
+              </Column>
+            </Row>
+          </ContainerInfo>
+          <ContainerText>
+            <Typography
+              fontSize="20px"
+              color={theme.colors.black}
+              fontWeight={600}
+              ml={theme.space.s1}
             >
-              <Typography
-                fontSize={theme.space.s3}
-                color={theme.colors.black}
-                fontWeight={600}
-                mb={theme.space.s1}
-                letterSpacing={0.8}
-              >
-                {user.name}
-              </Typography>
-              <Typography
-                fontSize={10}
-                color="#333333"
-                fontWeight={500}
-                letterSpacing={0.8}
-              >
-                {user.email}
-              </Typography>
-            </Column>
-          </Row>
-        </ContainerInfo>
-        <ContainerText>
-          <Typography
-            fontSize="20px"
-            color={theme.colors.black}
-            fontWeight={600}
-            ml={theme.space.s1}
-          >
-            Categorias
-          </Typography>
-          <MultipleSelect />
-        </ContainerText>
-      </FlexBox>
-    </HeaderLayout>
-  );
+              Categorias
+            </Typography>
+            <MultipleSelect />
+          </ContainerText>
+        </FlexBox>
+      </HeaderLayout>
+    );
 }
 
 const HeaderLayout = styled.header(

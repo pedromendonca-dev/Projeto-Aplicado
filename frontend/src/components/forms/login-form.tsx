@@ -50,7 +50,7 @@ const LoginForm = () => {
   });
 
   const loginSubmit = (data: LoginProps) => {
-    const filterLogin = users.filter(
+    const filterLogin = users?.filter(
       (item: UserProps) =>
         item.email === data.email && item.password == data.password
     )?.[0];
@@ -58,6 +58,7 @@ const LoginForm = () => {
     if (!filterLogin) {
       return toast.error("Usuário não encontrado");
     } else {
+      localStorage.setItem("userId", filterLogin?.id);
       return route.push("/categorias");
     }
   };

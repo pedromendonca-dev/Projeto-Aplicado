@@ -21,6 +21,6 @@ export class AuthController {
     @Req() req: Request & { user: UserProfile },
     @Res() res: Response,
   ) {
-    res.redirect('http://localhost:3002/categorias');
+    res.redirect('http://localhost:3000/categorias');
   }
 }
