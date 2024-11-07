@@ -50,7 +50,7 @@ const LoginForm = () => {
   });
 
   const loginSubmit = (data: LoginProps) => {
-    const filterLogin = users.filter(
+    const filterLogin = users?.filter(
       (item: UserProps) =>
         item.email === data.email && item.password == data.password
     )?.[0];
