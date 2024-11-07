@@ -8,12 +8,15 @@ import { Row } from "../row";
 import { Column } from "../column";
 import { theme } from "@/lib/theme";
 import MultipleSelect from "../select-header";
+import { useRouter } from "next/navigation";
 
 interface HeaderProps {
   name: string;
 }
 
 export default function Header({ name = 'Categorias' }: HeaderProps) {
+  const router = useRouter()
+
   const {
     data: user,
     isLoading,
@@ -32,13 +35,13 @@ export default function Header({ name = 'Categorias' }: HeaderProps) {
     return <div>Loading...</div>;
   }
   if (isError) {
-    return <div>Error loading user data.</div>;
+    return <div></div>;
   } else
     return (
       <HeaderLayout>
         <FlexBox>
           <ContainerInfo>
-            <Row display="flex" mt={theme.space.s1}>
+            <Row display="flex" mt={theme.space.s1} onClick={() => router.push('/perfil')}>
               <Avatar
                 alt="Foto de Perfil"
                 src="M"

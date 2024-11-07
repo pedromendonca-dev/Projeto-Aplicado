@@ -26,6 +26,15 @@ function createData(
 
 const rows = [
   createData(
+    "http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofissional_exemplo.d55196c6.png&w=256&q=75",
+    "Ana Silva",
+    "Limpeza residencial",
+    "Messejana",
+    "R$ 100,00",
+    "10",
+    1
+  ),
+  createData(
     "https://avatars.githubusercontent.com/u/66935004?v=4",
     "Marianne Gomes",
     "Limpeza residencial",

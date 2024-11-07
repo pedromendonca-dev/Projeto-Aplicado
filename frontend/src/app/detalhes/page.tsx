@@ -15,6 +15,8 @@ import Galeria2 from "@/assets/images/galeria_2.png";
 import Galeria3 from "@/assets/images/galeria_1.png";
 import ratings from "@/assets/images/estrelas.png";
 import Layout from "@/components/layout/Layout";
+import { Button } from "@/components";
+import { useRouter } from "next/navigation";
 
 const Detalhes = () => {
   const galeria = [Galeria1, Galeria2, Galeria3];
@@ -39,6 +41,8 @@ const Detalhes = () => {
       social: "@analsilvam",
     },
   };
+
+  const router = useRouter();
 
   return (
     <Layout header="Detalhes do Profissional">
@@ -328,7 +332,9 @@ const Detalhes = () => {
                 </Typography>
               </Row>
               <Column width={76}>
-                <Typography>A fazer.</Typography>
+                <Button onClick={() => router.push("/agendamento/inicial")}>
+                  20:00
+                </Button>
               </Column>
             </Column>
             <Column width="50%" padding={theme.space.s8}>
