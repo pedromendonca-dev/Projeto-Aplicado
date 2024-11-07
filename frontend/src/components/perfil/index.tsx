@@ -26,7 +26,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function PerfilBody() {
-  const userId = 45;
+  const userId = localStorage.getItem("userId");
   const {
     data: user,
     isLoading,

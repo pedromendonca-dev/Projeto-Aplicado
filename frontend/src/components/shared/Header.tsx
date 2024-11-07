@@ -18,9 +18,11 @@ export default function Header() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user", 45],
+    queryKey: ["user", localStorage.getItem("userId")],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3001/users/45");
+      const response = await axios.get(
+        `http://localhost:3001/users/${localStorage.getItem("userId")}`
+      );
       return response.data;
     },
   });

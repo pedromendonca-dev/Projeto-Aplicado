@@ -58,6 +58,7 @@ const LoginForm = () => {
     if (!filterLogin) {
       return toast.error("Usuário não encontrado");
     } else {
+      localStorage.setItem("userId", filterLogin?.id);
       return route.push("/categorias");
     }
   };
