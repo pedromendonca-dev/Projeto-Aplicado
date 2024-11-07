@@ -17,17 +17,14 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
-  const { searchParams }: any = new URL(req.url);
-
+export async function GET() {
   try {
     const response = await apiServer.get("/users");
-    return Response.json(response);
-  } catch (error) {
-    const errorResponse = error as any;
 
-    return Response.json(errorResponse.message, {
-      status: errorResponse.statusCode,
-    });
+    const { data } = response;
+
+    return Response.json({ data });
+  } catch (error) {
+    return Response.json(error);
   }
 }

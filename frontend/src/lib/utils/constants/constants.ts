@@ -1,33 +1,48 @@
-import Costumer from "@/assets/images/costumer.svg"
-import Notification from "@/assets/images/notification.svg"
-import Password from "@/assets/images/password.svg"
+import Costumer from "@/assets/images/costumer.svg";
+import Notification from "@/assets/images/notification.svg";
+import Password from "@/assets/images/password.svg";
 import { StaticImageData } from "next/image";
-import Categorias from "@/assets/images/categorias.svg"
-import Services from "@/assets/images/services.svg"
-import MeuAgendamento from "@/assets/images/agendamento.svg"
-
+import Categorias from "@/assets/images/categorias.svg";
+import Services from "@/assets/images/services.svg";
+import MeuAgendamento from "@/assets/images/agendamento.svg";
 
 export type sideMenuType = {
-    name: string,
-    path: string,
-    icon: StaticImageData,
-}
+  name: string;
+  path: string;
+  icon: StaticImageData;
+};
 
 export const sideMenuLinks = [
-    { name: 'Meu Perfil', path: '/perfil', icon: Costumer },
-    { name: 'Senha', path: '/senha', icon: Notification },
-    { name: 'Notificações', path: '/notificacoes', icon: Password },
-  ];
+  { name: "Meu Perfil", path: "/perfil", icon: Costumer },
+  { name: "Senha", path: "/senha", icon: Notification },
+  // { name: 'Notificações', path: '/notificacoes', icon: Password },
+];
 
-  export const sideMenuThings = [
-    { name: 'Categorias', path: '/categorias', icon: Categorias },
-    { name: 'Serviços Contratados', path: '/contractservices', icon: Services },
-    { name: 'Meus Agendamentos', path: '/agendamento/inicial', icon: MeuAgendamento },
-  ]
+export const sideMenuThings = [
+  { name: "Categorias", path: "/categorias", icon: Categorias },
+  { name: "Serviços Contratados", path: "/contractservices", icon: Services },
+  {
+    name: "Meus Agendamentos",
+    path: "/agendamento/inicial",
+    icon: MeuAgendamento,
+  },
+];
 
+export const professionalMenuLinks = [
+  {
+    path: "/propostas",
+    name: "Propostas",
+    icon: Notification,
+  },
+  {
+    path: "/perfilProfissional",
+    name: "Meu Perfil",
+    icon: Costumer,
+  },
+];
 
 //  <NavItem onClick={(handleClick)} href="#perfil" autoFocus={(focus)}>
-//   <Image style={{ marginRight: 24 }} src={Costumer} alt="Categorias" />  
+//   <Image style={{ marginRight: 24 }} src={Costumer} alt="Categorias" />
 //   Meu Perfil
 // </NavItem>
 

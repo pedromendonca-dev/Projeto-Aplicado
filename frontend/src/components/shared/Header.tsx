@@ -8,8 +8,11 @@ import { Row } from "../row";
 import { Column } from "../column";
 import { theme } from "@/lib/theme";
 import MultipleSelect from "../select-header";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
+
   const {
     data: user,
     isLoading,

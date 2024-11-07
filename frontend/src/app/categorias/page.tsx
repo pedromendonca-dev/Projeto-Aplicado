@@ -69,7 +69,7 @@ export default function MainBody() {
           </Column>
         ))}
       </FlexBox>
-      <ButtonDiv>
+      {/* <ButtonDiv>
         <Button
           variant="contained"
           onClick={() => {
@@ -78,7 +78,7 @@ export default function MainBody() {
         >
           Criar Categoria
         </Button>
-      </ButtonDiv>
+      </ButtonDiv> */}
     </>
   );
 }
