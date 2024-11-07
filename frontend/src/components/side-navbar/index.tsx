@@ -13,9 +13,9 @@ export const SideNavbar = () => (
       Serviços contratados
     </NavItem>
 
-    <NavItem href="#about">
+    {/* <NavItem href="#about">
       Meus agendamentos
-    </NavItem>
+    </NavItem> */}
 
   </SideNavbarContainer>
 );

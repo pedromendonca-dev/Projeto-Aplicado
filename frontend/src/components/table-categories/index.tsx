@@ -8,71 +8,62 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
-import Chip from "@mui/material/Chip";
+import { Button, Rating } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
+import styled from "styled-components";
 
 function createData(
-  title: string,
-  date: string,
-  status: string,
-  category: string,
-  categoryColor: string,
-  action: string,
+  photo: string,
+  name: string,
+  espec: string,
+  area: string,
+  price: string,
+  avaliation: string,
   id: number
 ) {
-  return { title, date, status, category, categoryColor, action, id };
+  return { photo, name, espec, area, price, avaliation, id };
 }
 
 const rows = [
   createData(
-    "Limpeza residencial em Messejana",
-    "17/05",
-    "Finalizado",
+    "https://avatars.githubusercontent.com/u/66935004?v=4",
+    "Marianne Gomes",
     "Limpeza residencial",
-    "#165C84",
-    "Detalhes",
+    "Messejana",
+    "R$ 100,00",
+    "10",
     1
   ),
   createData(
-    "Manutenção de jardim",
-    "15/05",
-    "Cancelado",
-    "Jardinagem e paisagismo",
-    "#678662",
-    "Detalhes",
-    2
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&s",
+    "Pedro Lucas",
+    "Limpeza residencial",
+    "Messejana",
+    "R$ 100,00",
+    "10",
+    1
   ),
   createData(
-    "Reforma de cozinha de apartamento",
-    "05/05",
-    "Finalizado",
-    "Construção e reforma",
-    "#88785B",
-    "Detalhes",
-    3
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&s",
+    "Lucas Rangel",
+    "Limpeza residencial",
+    "Messejana",
+    "R$ 100,00",
+    "10",
+    1
   ),
   createData(
-    "Mudança do bairro de Messejana p/ bairro Guar...",
-    "01/05",
-    "Finalizado",
-    "Serviços de mudança",
-    "#4F5885",
-    "Detalhes",
-    4
-  ),
-  createData(
-    "Manutenção na parte elétrica de salão de beleza",
-    "19/04",
-    "Finalizado",
-    "Reparo elétrico",
-    "#278A83",
-    "Detalhes",
-    5
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&s",
+    "Caio Gomes",
+    "Limpeza residencial",
+    "Messejana",
+    "R$ 100,00",
+    "10",
+    1
   ),
 ];
 
-const Servicetable = () => {
+const CategoriesTable = () => {
   const router = useRouter();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -89,7 +80,7 @@ const Servicetable = () => {
   };
 
   const handleDetailsClick = () => {
-    router.push(`/detalhes/servico`);
+    router.push(`/detalhes`);
   };
 
   return (
@@ -100,15 +91,21 @@ const Servicetable = () => {
       >
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontWeight: "bold" }}>Título</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Foto</TableCell>
             <TableCell align="center" sx={{ fontWeight: "bold" }}>
-              Data
+              Nome
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: "bold" }}>
-              Status
+              Especialização
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: "bold" }}>
-              Categoria
+              Área do serviço
+            </TableCell>
+            <TableCell align="center" sx={{ fontWeight: "bold" }}>
+              Preço/Hora
+            </TableCell>
+            <TableCell align="center" sx={{ fontWeight: "bold" }}>
+              Avaliação
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: "bold" }}>
               Ações
@@ -118,20 +115,35 @@ const Servicetable = () => {
         <TableBody>
           {rows
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row) => (
+            .map((row, index) => (
               <TableRow
-                key={row.title}
+                key={index}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   fontSize: "0.85rem",
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.title}
+                  <ImageStyle
+                    alt="photo"
+                    src={row.photo}
+                    width={50}
+                    height={50}
+                  />
                 </TableCell>
-                <TableCell align="center">{row.date}</TableCell>
-                <TableCell align="center">{row.status}</TableCell>
+                <TableCell align="center">{row.name}</TableCell>
+                <TableCell align="center">{row.espec}</TableCell>
+                <TableCell align="center">{row.area}</TableCell>
+                <TableCell align="center">{row.price}</TableCell>
                 <TableCell align="center">
+                  <Rating
+                    name="half-rating-read"
+                    defaultValue={5}
+                    precision={0.5}
+                    readOnly
+                  />
+                </TableCell>
+                {/* <TableCell align="center">
                   <Chip
                     label={row.category}
                     style={{
@@ -139,15 +151,15 @@ const Servicetable = () => {
                       color: "#FFF",
                     }}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="center">
                   <Button
                     variant="text"
                     color="primary"
-                    onClick={() => handleDetailsClick(row.id)}
+                    onClick={() => handleDetailsClick()}
                     sx={{ textTransform: "none" }}
                   >
-                    {row.action}
+                    Detalhes
                   </Button>
                 </TableCell>
               </TableRow>
@@ -167,4 +179,8 @@ const Servicetable = () => {
   );
 };
 
-export default Servicetable;
+const ImageStyle = styled.img`
+  border-radius: 100%;
+`;
+
+export default CategoriesTable;

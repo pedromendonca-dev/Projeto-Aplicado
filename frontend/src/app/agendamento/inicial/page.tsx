@@ -1,9 +1,8 @@
 "use client"
 
-import { SideNavbar } from '@/components';
 import AgendamentoForm from '@/components/forms/agendamento-form';
 
-import Header from '@/components/header'
+import Layout from '@/components/layout/Layout';
 import React from 'react'
 
 
@@ -11,11 +10,9 @@ import React from 'react'
  const Agendamento = () => {
 
   return (
-    <>
-    <Header userId={45} headerTitle='O que você precisa?' />
-    <SideNavbar />
+    <Layout>
     <AgendamentoForm />
-    </>
+    </Layout>
   )
 }
 

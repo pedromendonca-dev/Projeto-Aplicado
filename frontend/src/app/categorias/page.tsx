@@ -2,17 +2,16 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Column } from "@/components";
 import { theme } from "@/lib/theme";
-import styled, { css } from "styled-components";
-import { useRouter } from "next/navigation";
+import styled from "styled-components";
 import axios from "axios";
 import { CategoriaProps } from "@/lib/interface/categoria";
+import Layout from "@/components/layout/Layout";
+import { useRouter } from "next/navigation";
 
 export default function MainBody() {
-  const router = useRouter();
-
   const {
     data: categories,
     isLoading,
@@ -33,8 +32,10 @@ export default function MainBody() {
     return <div>Error loading user data.</div>;
   }
 
+  const router = useRouter()
+
   return (
-    <>
+    <Layout>
       <FlexBox>
         {categories?.map((category: CategoriaProps) => (
           <Column
@@ -45,6 +46,7 @@ export default function MainBody() {
             backgroundColor={theme.colors.white}
             overflow={"hidden"}
             border="1.5px solid #CCCCCC"
+            onClick={() => router.push(`/categorias/detalhes/${category.id}`)}
           >
             <img
               src={category.image}
@@ -79,12 +81,12 @@ export default function MainBody() {
           Criar Categoria
         </Button>
       </ButtonDiv> */}
-    </>
+    </Layout>
   );
 }
 
 const FlexBox = styled.div(
-  () => css`
+  () => `
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
@@ -95,17 +97,6 @@ const FlexBox = styled.div(
     padding-bottom: ${(props) => props.theme.space.s5};
     height: 65%;
     width: 98%;
-  `
-);
-
-const ButtonDiv = styled.div(
-  ({ theme }) => css`
-    display: flex;
-
-    margin-top: 24px;
-    margin-left: 44px;
-    background-color: ${theme.colors.white};
-    height: 56px;
-    width: 180px;
+    padding: 3rem 2rem
   `
 );

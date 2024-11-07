@@ -2,18 +2,18 @@
 
 import React from "react";
 
-import Servicetable from "@/components/table-services";
 import Layout from "@/components/layout/Layout";
 import { Column } from "@/components";
+import CategoriesTable from "@/components/table-categories";
 
-const ContractServices = () => {
+const DetalhesCategoria = () => {
   return (
-    <Layout header='Serviços contratados'>
+    <Layout>
       <Column width="100%" height="100%" padding="30px">
-        <Servicetable />
+        <CategoriesTable />
       </Column>
     </Layout>
   );
 };
 
-export default ContractServices;
+export default DetalhesCategoria;
