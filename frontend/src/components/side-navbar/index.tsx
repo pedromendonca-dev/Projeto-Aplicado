@@ -62,7 +62,6 @@ const NavItem = styled.a(
     transition: background-color 0.3s, color 0.3s;
     border-radius: ${theme.space.s2};
     margin-bottom: ${theme.space.s4};
-    font-weight: bold;    
 
     &:hover, &:active {
       cursor: pointer;

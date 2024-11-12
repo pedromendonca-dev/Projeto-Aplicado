@@ -12,6 +12,8 @@ import Layout from "@/components/layout/Layout";
 import { useRouter } from "next/navigation";
 
 export default function MainBody() {
+  const router = useRouter();
+
   const {
     data: categories,
     isLoading,
@@ -31,8 +33,6 @@ export default function MainBody() {
   if (isError) {
     return <div>Error loading user data.</div>;
   }
-
-  const router = useRouter()
 
   return (
     <Layout>
