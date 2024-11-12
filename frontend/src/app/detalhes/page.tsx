@@ -331,9 +331,9 @@ const Detalhes = () => {
                   Agendamento
                 </Typography>
               </Row>
-              <Column width={76}>
+              <Column width={130}>
                 <Button onClick={() => router.push("/agendamento/inicial")}>
-                  20:00
+                  08/11 - 20:00
                 </Button>
               </Column>
             </Column>
