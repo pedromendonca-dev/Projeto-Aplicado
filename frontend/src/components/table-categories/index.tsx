@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Rating } from "@mui/material";
+import { Button, Card, Rating } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import styled from "styled-components";
 
