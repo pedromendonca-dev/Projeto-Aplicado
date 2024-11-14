@@ -34,18 +34,37 @@ export default function PerfilBody() {
   } = useQuery({
     queryKey: ["user", userId],
     queryFn: async () => {
-      const response = await axios.get(`http://localhost:3001/users/${userId}`);
+      const response = await axios.get("http://localhost:3001/users/${userId}");
       return response.data;
     },
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImagePreview(imageUrl);
+      
+      
+      await uploadImage(file);
+    }
+  };
+
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("http://localhost:3001/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("Upload bem-sucedido:", response.data);
+    } catch (error) {
+      console.error("Erro ao fazer upload:", error);
     }
   };
 
