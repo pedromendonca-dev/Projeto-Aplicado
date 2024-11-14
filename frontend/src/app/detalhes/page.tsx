@@ -15,10 +15,13 @@ import Galeria2 from "@/assets/images/galeria_2.png";
 import Galeria3 from "@/assets/images/galeria_1.png";
 import ratings from "@/assets/images/estrelas.png";
 import Layout from "@/components/layout/Layout";
+import { useState } from "react";
 import { Button } from "@/components";
 import { useRouter } from "next/navigation";
+import FeedbackDialog from "@/components/feedback-dialog";
 
 const Detalhes = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const galeria = [Galeria1, Galeria2, Galeria3];
 
   const profGeral = {
@@ -379,7 +382,7 @@ const Detalhes = () => {
           {/* Feedback */}
           <Row
             width="82%"
-            height="402px"
+            height="420px"
             backgroundColor={theme.colors.white}
             border="1px solid #E7E7E7"
             marginBottom={theme.space.s4}
@@ -453,6 +456,19 @@ const Detalhes = () => {
                 </Column>
                 <Image src={ratings} alt={"rating"} />
               </Row>
+              <Button
+                width={"136px"}
+                padding={theme.space.s2}
+                alignSelf={"flex-end"}
+                marginTop={theme.space.s2}
+                onClick={() => setIsDialogOpen(true)}
+              >
+                Avaliar Serviço
+              </Button>
+              <FeedbackDialog
+                open={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+              />
             </Column>
           </Row>
         </Column>
