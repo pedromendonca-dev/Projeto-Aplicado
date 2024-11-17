@@ -468,6 +468,8 @@ const Detalhes = () => {
               <FeedbackDialog
                 open={isDialogOpen}
                 onClose={() => setIsDialogOpen(false)}
+                providerId="provider-uuid-here"
+                consumerId="consumer-uuid-here"
               />
             </Column>
           </Row>

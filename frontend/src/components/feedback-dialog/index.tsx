@@ -12,12 +12,19 @@ import {
   styled,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
-import { theme } from "@/lib/theme";
+import { useForm } from "react-hook-form";
+import { feedbackFormSchema } from "@/lib/schemas/feedback";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { apiClient } from "@/lib/services/api/api-client";
+import { FeedbackProps } from "@/lib/interface/feedback";
+import toast from "react-hot-toast";
 
 interface FeedbackDialogProps {
   open: boolean;
   onClose: () => void;
+  providerId: string;
+  consumerId: string;
 }
 
 type RatingValue = 1 | 2 | 3 | 4 | 5 | null;
@@ -29,14 +36,14 @@ const RatingButton = styled(Button)(({ theme }) => ({
   padding: 0,
   border: `1px solid ${theme.palette.grey[300]}`,
   "&:hover": {
-    backgroundColor: theme.palette.primary.light,
-    color: theme.palette.primary.contrastText,
+    backgroundColor: "#333333",
+    color: "#ffffff",
   },
   "&.selected": {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
+    backgroundColor: "#000000",
+    color: "#ffffff",
     "&:hover": {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: "#333333",
     },
   },
 }));
@@ -56,48 +63,66 @@ const RatingLabel = styled(Typography)(({ theme }) => ({
 
 const SendButton = styled(Button)`
   && {
-    background-color: "#000000";
-    color: "#ffffff";
+    background-color: #000000;
+    color: #ffffff;
     text-transform: none;
 
+    &:hover {
+      background-color: #333333;
+    }
+
     &:disabled {
-      background-color: "#ffffff";
-      color: "#000000";
+      background-color: #cccccc;
+      color: #ffffff;
     }
   }
 `;
 
-const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
-  const [rating, setRating] = useState<RatingValue>(null);
-  const [feedback, setFeedback] = useState<string>("");
+const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
+  open,
+  onClose,
+  providerId,
+  consumerId,
+}) => {
+  const {
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm<FeedbackProps>({
+    resolver: zodResolver(feedbackFormSchema),
+    defaultValues: {
+      rating: 0,
+      comment: "",
+      provider_id: providerId,
+      consumer_id: consumerId,
+    },
+  });
 
-  const handleSubmit = (): void => {
-    console.log({ rating, feedback });
+  const createReview = useMutation({
+    mutationFn: (data: FeedbackProps) => {
+      return apiClient.post("/reviews", data);
+    },
+    onSuccess: () => {
+      toast.success("Feedback enviado com sucesso!");
+      handleClose();
+    },
+    onError: () => {
+      toast.error("Erro ao enviar feedback");
+    },
+  });
+
+  const handleClose = () => {
+    reset();
     onClose();
   };
 
-  const handleClose = (): void => {
-    setFeedback("");
-    setRating(null);
-    onClose();
+  const onSubmit = (data: FeedbackProps) => {
+    createReview.mutate(data);
   };
 
-  const getRatingLabel = (rating: RatingValue): string => {
-    switch (rating) {
-      case 1:
-        return "Pessimo";
-      case 2:
-        return "Ruim";
-      case 3:
-        return "Bom";
-      case 4:
-        return "Muito Bom";
-      case 5:
-        return "Excelente";
-      default:
-        return "Selecione a qualidade de serviço";
-    }
-  };
+  const currentRating = watch("rating");
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
@@ -112,52 +137,55 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
         </Box>
       </DialogTitle>
 
-      <DialogContent>
-        <Typography variant="subtitle1" alignSelf="flex-start" gutterBottom>
-          Quão satisfeito(a) você está com o serviço oferecido/prestado?
-        </Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <DialogContent>
+          <Typography variant="subtitle1" alignSelf="flex-start" gutterBottom>
+            Quão satisfeito(a) você está com o serviço oferecido/prestado?
+          </Typography>
 
-        <RatingContainer sx={{ mt: 4 }}>
-          {([1, 2, 3, 4, 5] as const).map((value) => (
-            <RatingButton
-              key={value}
-              variant="outlined"
-              className={rating === value ? "selected" : ""}
-              onClick={() => setRating(value)}
-            >
-              {value}
-            </RatingButton>
-          ))}
-        </RatingContainer>
+          <RatingContainer sx={{ mt: 4 }}>
+            {([1, 2, 3, 4, 5] as const).map((value) => (
+              <RatingButton
+                key={value}
+                variant="outlined"
+                className={currentRating === value ? "selected" : ""}
+                onClick={() => setValue("rating", value)}
+              >
+                {value}
+              </RatingButton>
+            ))}
+          </RatingContainer>
 
-        <RatingLabel variant="body2">{getRatingLabel(rating)}</RatingLabel>
+          {errors.rating && (
+            <Typography color="error" variant="caption">
+              Selecione uma avaliação
+            </Typography>
+          )}
 
-        <TextField
-          multiline
-          rows={3}
-          fullWidth
-          placeholder="Conte pra gente: como foi sua experiência?"
-          value={feedback}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setFeedback(e.target.value)
-          }
-          variant="outlined"
-          sx={{ mt: 4 }}
-        />
-      </DialogContent>
+          <TextField
+            multiline
+            rows={3}
+            fullWidth
+            placeholder="Conte pra gente: como foi sua experiência?"
+            onChange={(e) => setValue("comment", e.target.value)}
+            variant="outlined"
+            sx={{ mt: 4 }}
+          />
+        </DialogContent>
 
-      <DialogActions sx={{ padding: 2 }}>
-        <Button onClick={handleClose} variant="text" color="inherit">
-          Cancelar
-        </Button>
-        <SendButton
-          onClick={handleSubmit}
-          variant="contained"
-          disabled={!rating}
-        >
-          Enviar
-        </SendButton>
-      </DialogActions>
+        <DialogActions sx={{ padding: 2 }}>
+          <Button onClick={handleClose} variant="text" color="inherit">
+            Cancelar
+          </Button>
+          <SendButton
+            type="submit"
+            variant="contained"
+            disabled={createReview.isPending}
+          >
+            {createReview.isPending ? "Enviando..." : "Enviar"}
+          </SendButton>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };
