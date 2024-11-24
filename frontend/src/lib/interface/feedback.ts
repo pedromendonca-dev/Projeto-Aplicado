@@ -3,4 +3,5 @@ export interface FeedbackProps {
   consumer_id: string;
   rating: number;
   comment?: string;
+  user_id: string;
 }

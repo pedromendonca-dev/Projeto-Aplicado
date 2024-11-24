@@ -3,4 +3,5 @@ export class CreateReviewDto {
   consumer_id: string;
   rating: number;
   comment?: string;
+  userId?: string;
 }

@@ -1,7 +1,6 @@
 "use client";
+
 import { Column } from "@/components/column";
-import Header from "@/components/header";
-import { SideNavbar } from "@/components/side-navbar";
 import styled, { css } from "styled-components";
 import { theme } from "@/lib/theme";
 import { Row } from "@/components/row";
@@ -15,7 +14,7 @@ import Galeria2 from "@/assets/images/galeria_2.png";
 import Galeria3 from "@/assets/images/galeria_1.png";
 import ratings from "@/assets/images/estrelas.png";
 import Layout from "@/components/layout/Layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 import FeedbackDialog from "@/components/feedback-dialog";
@@ -465,11 +464,12 @@ const Detalhes = () => {
               >
                 Avaliar Serviço
               </Button>
+
               <FeedbackDialog
                 open={isDialogOpen}
                 onClose={() => setIsDialogOpen(false)}
-                providerId="provider-uuid-here"
-                consumerId="consumer-uuid-here"
+                providerId="f472d043-09cc-4c84-8d0e-f6b7f5a39b18"
+                consumerId={localStorage.getItem("userId") || ""}
               />
             </Column>
           </Row>

@@ -14,8 +14,8 @@ interface HeaderProps {
   name: string;
 }
 
-export default function Header({ name = 'Categorias' }: HeaderProps) {
-  const router = useRouter()
+export default function Header({ name = "Categorias" }: HeaderProps) {
+  const router = useRouter();
 
   const {
     data: user,
@@ -41,7 +41,11 @@ export default function Header({ name = 'Categorias' }: HeaderProps) {
       <HeaderLayout>
         <FlexBox>
           <ContainerInfo>
-            <Row display="flex" mt={theme.space.s1} onClick={() => router.push('/perfil')}>
+            <Row
+              display="flex"
+              mt={theme.space.s1}
+              onClick={() => router.push("/perfil")}
+            >
               <Avatar
                 alt="Foto de Perfil"
                 src="M"

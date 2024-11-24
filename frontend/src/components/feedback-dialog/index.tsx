@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -19,6 +20,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiClient } from "@/lib/services/api/api-client";
 import { FeedbackProps } from "@/lib/interface/feedback";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 interface FeedbackDialogProps {
   open: boolean;
@@ -26,8 +28,6 @@ interface FeedbackDialogProps {
   providerId: string;
   consumerId: string;
 }
-
-type RatingValue = 1 | 2 | 3 | 4 | 5 | null;
 
 const RatingButton = styled(Button)(({ theme }) => ({
   minWidth: "48px",
@@ -97,19 +97,43 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
       comment: "",
       provider_id: providerId,
       consumer_id: consumerId,
+      user_id: consumerId,
     },
   });
 
   const createReview = useMutation({
-    mutationFn: (data: FeedbackProps) => {
-      return apiClient.post("/reviews", data);
+    mutationFn: async (data: FeedbackProps) => {
+      console.log("Dados sendo enviados:", {
+        rating: data.rating,
+        comment: data.comment,
+        provider_id: data.provider_id,
+        consumer_id: data.consumer_id,
+        user_id: data.consumer_id,
+      });
+
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/reviews",
+          data
+        );
+        console.log("Resposta do servidor:", response);
+        return response;
+      } catch (error) {
+        console.error("Erro detalhado:", error);
+        throw error;
+      }
     },
     onSuccess: () => {
       toast.success("Feedback enviado com sucesso!");
       handleClose();
     },
-    onError: () => {
-      toast.error("Erro ao enviar feedback");
+    onError: (error: any) => {
+      console.error("Erro no mutation:", error?.response || error);
+      toast.error(
+        `Erro ao enviar feedback: ${
+          error?.response?.data?.message || error?.message
+        }`
+      );
     },
   });
 
@@ -119,7 +143,21 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
   };
 
   const onSubmit = (data: FeedbackProps) => {
-    createReview.mutate(data);
+    console.log("Formulário submetido!"); // Primeiro log
+    console.log("Dados do formulário:", data); // Dados que estão sendo enviados
+
+    // Verificar se rating é válido
+    if (data.rating === 0) {
+      toast.error("Por favor, selecione uma avaliação");
+      return;
+    }
+
+    createReview.mutate(data, {
+      onError: (error) => {
+        console.error("Erro na mutação:", error);
+        toast.error("Erro ao enviar feedback");
+      },
+    });
   };
 
   const currentRating = watch("rating");
