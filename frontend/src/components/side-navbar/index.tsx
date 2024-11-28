@@ -13,16 +13,16 @@ export const SideNavbar = () => (
       Serviços contratados
     </NavItem>
 
-    <NavItem href="#about">
+    {/* <NavItem href="#about">
       Meus agendamentos
-    </NavItem>
+    </NavItem> */}
 
   </SideNavbarContainer>
 );
 
 const SideNavbarContainer = styled.div(
   ({ theme }) => css`
-    position: fixed;
+    
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -48,7 +48,6 @@ const NavLabel = styled.label(
     text-align: left;
     color: ${theme.colors.black};
     font-size: ${theme.space.s4};
-    font-weight: bold;    
   `
 );
 
@@ -63,6 +62,7 @@ const NavItem = styled.a(
     transition: background-color 0.3s, color 0.3s;
     border-radius: ${theme.space.s2};
     margin-bottom: ${theme.space.s4};
+    font-weight: bold;    
 
     &:hover, &:active {
       cursor: pointer;

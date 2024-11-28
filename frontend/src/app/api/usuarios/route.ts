@@ -16,3 +16,15 @@ export async function POST(req: Request) {
     });
   }
 }
+
+export async function GET() {
+  try {
+    const response = await apiServer.get("/users");
+
+    const { data } = response;
+
+    return Response.json({ data });
+  } catch (error) {
+    return Response.json(error);
+  }
+}
