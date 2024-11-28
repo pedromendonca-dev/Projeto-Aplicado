@@ -12,7 +12,7 @@ import ProfessionalTable from "@/components/table-proposal";
 const Wrapper = styled.div`
   background-color: ${({ theme }) => 
     theme.colors.blue[200]};
-  min-height: 100vh;
+  min-height: 120vh;
 `;
 
 const Proposal = () => {

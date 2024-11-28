@@ -81,7 +81,7 @@ const ProfessionalTable = () => {
     <TableContainer
       component={Paper}
       sx={{
-        maxWidth: "1400px",
+        maxWidth: "900px",
         margin: "0 auto",
         marginTop: "7.0em",
         marginLeft: "26.0em",

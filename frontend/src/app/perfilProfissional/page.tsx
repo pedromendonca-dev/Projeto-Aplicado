@@ -7,7 +7,7 @@ import SideNavbarProfessional from '@/components/side-navbar/index-professional'
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.blue[200]};
-  min-height: 175vh;
+  min-height: 275vh;
 `;
 
 const PerfilProfessional = () => {

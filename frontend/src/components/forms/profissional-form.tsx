@@ -172,7 +172,7 @@ const ProfileForm: React.FC = () => {
           </StyledUploadArea>
         </FormField>
         <FormField>
-          <Label variant="body1">Horários de Disponibilidade:</Label>
+          <Label variant="body1">Horários:</Label>
           <StyledFormControl>
             <InputLabel id="horarios-label">Selecione os horários</InputLabel>
             <StyledSelect
@@ -223,50 +223,63 @@ export default ProfileForm;
 
 const FormContainer = styled.div`
   max-width: 1400px;
+  width: 70%;
   margin: 7em auto;
-  margin-left: 26em;
+  margin-left: 326px; 
   padding: 4rem;
   background-color: ${theme.colors.white};
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; 
 `;
 
 const FormField = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   margin-bottom: 1.5rem;
+  gap: 1rem;
 `;
 
 const Label = styled(Typography).attrs({
   fontWeight: 600,
   color: theme.colors.black,
 })`
-  width: 120px; 
-  margin-right: 1rem;
-  text-align: right;
+   flex: 0 0 120px;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    flex: 0 0 100px;
+  }
 `;
 
 const StyledTextField = styled(TextField)`
   & .MuiInputBase-root {
+    flex:1;
+    max-width:76.5%;
+    min-width:0%;
     padding: ${theme.space.s2};
+    padding-top:0px;
     border-radius: 4px;
-    width: 50rem;
-    height: 4.0rem;
-    margin-left: 12rem;
+    width: 42rem;
+    height: 3.0rem;
+    margin-left: 10rem;
   }
      & .MuiFormHelperText-root {
-    margin-left: 12rem; 
+    margin-left: 10rem; 
     margin-top: 0.4rem; 
   }
 `;
 
 const StyledFormControl = styled(FormControl)`
-  margin-left: 12rem;
-  width: 50rem;
+  margin-left: 10rem;
+  width: 40rem;
 `;
+
 
 const StyledSelect = styled(Select)`
   & .MuiInputBase-root {
+  
     padding: ${theme.space.s2};
     border-radius: 4px;
     height: 4.0rem;
@@ -274,8 +287,8 @@ const StyledSelect = styled(Select)`
 `;
 
 const StyledUploadArea = styled.div`
-  margin-left: 12rem;
-  width: 50rem;
+  margin-left: 10rem;
+  width: 40rem;
   height: 15rem;
   border: 2px dashed ${theme.colors.gray[200]};
   border-radius: 4px;
