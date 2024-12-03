@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid2";
 import { theme } from "@/lib/theme";
 import { Typography, TextField } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
@@ -26,6 +26,9 @@ import Boleto from "@/assets/images/boleto.svg";
 import Calendario from "@/assets/images/calendar.svg";
 import { createMercadoPagoPayment } from "@/lib/services/payment";
 import { useState } from "react";
+import { getUserById } from "@/lib/services/client/users";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
@@ -39,7 +42,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const ContainerDiv = styled.div(
-  ({ theme }) => css`
+  ({ theme }) => `
     position: absolute;
     display: block grid;
     z-index: 1;
@@ -60,6 +63,47 @@ const FinalizarAgendamentoForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
 
+  const id = localStorage.getItem("userId");
+
+  const { data: user } = useQuery({
+    queryKey: ["getUserByIds", id],
+    queryFn: () => getUserById({ userID: String(id) }),
+    select: ({ data }) => data,
+    enabled: !!id,
+  });
+
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { isValid },
+  } = useForm<AgendamentoFinalForm>({
+    mode: "all",
+    resolver: zodResolver(agendamentoFinalFormSchema),
+  });
+
+  useEffect(() => {
+    reset({
+      nome: user?.name,
+      sobrenome: user?.sobrenome,
+      email: user?.email,
+      contato: user?.phone,
+      cep: user?.cep,
+      rua: user?.rua,
+      numero: user?.number,
+      bairro: user?.bairro,
+      estado: user?.estado,
+      cidade: user?.cidade,
+    });
+  }, [user]);
+
+  const agendamentoFinal = (data: AgendamentoFinalProps) => {
+    const get = JSON.parse(localStorage.getItem("service"));
+    localStorage.setItem("service", JSON.stringify({ ...get, ...data }));
+  };
+
+  const service = JSON.parse(localStorage.getItem("service"));
+
   const handlePayment = async () => {
     setIsLoading(true);
     setBoletoUrl(null);
@@ -74,7 +118,6 @@ const FinalizarAgendamentoForm = () => {
 
       // Log the raw response for debugging
       const responseText = await response.text();
-      console.log("Raw response:", responseText);
 
       // Try to parse the response as JSON
       let data;
@@ -107,19 +150,6 @@ const FinalizarAgendamentoForm = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const {
-    handleSubmit,
-    register,
-    formState: { isValid },
-  } = useForm<AgendamentoFinalForm>({
-    mode: "all",
-    resolver: zodResolver(agendamentoFinalFormSchema),
-  });
-
-  const agendamentoFinal = (data: AgendamentoFinalProps) => {
-    console.log(data);
   };
 
   return (
@@ -301,7 +331,7 @@ const FinalizarAgendamentoForm = () => {
               <Typography fontSize={12} fontWeight={550} sx={{ mb: 1.5 }}>
                 Estado
               </Typography>
-              <TextField {...register("numero")}></TextField>
+              <TextField {...register("estado")}></TextField>
             </Column>
           </Row>
         </Box>
@@ -410,7 +440,7 @@ const FinalizarAgendamentoForm = () => {
                     sx={{ ml: 2 }}
                     color={theme.colors.gray[300]}
                   >
-                    26 de Maio, 11:00
+                    08 de dezembro, 11:00
                   </Typography>
                 </Row>
                 <Row width="100%">
@@ -484,9 +514,7 @@ const FinalizarAgendamentoForm = () => {
                     textAlign={"left"}
                     sx={{ mb: 2.8 }}
                   >
-                    ”Gostaria de sua ajuda para realizar uma limpeza geral na
-                    minha casa. Possuo muitas janelas que precisam de uma
-                    limpeza profunda e só, não consigo.”
+                    {service.info}
                   </Typography>
                 </Row>
               </Item>

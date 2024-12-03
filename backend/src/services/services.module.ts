@@ -8,5 +8,6 @@ import { ServicesService } from './services.service';
   imports: [ConfigModule],
   controllers: [ServicesController],
   providers: [ServicesService, SupabaseService],
+  exports: [ServicesService],
 })
 export class ServicesModule {}

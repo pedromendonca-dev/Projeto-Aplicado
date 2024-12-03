@@ -11,68 +11,16 @@ import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import TablePagination from "@mui/material/TablePagination";
-
-function createData(
-  title: string,
-  date: string,
-  status: string,
-  category: string,
-  categoryColor: string,
-  action: string,
-  id: number
-) {
-  return { title, date, status, category, categoryColor, action, id };
-}
-
-const rows = [
-  createData(
-    "Limpeza residencial em Messejana",
-    "17/05",
-    "Finalizado",
-    "Limpeza residencial",
-    "#165C84",
-    "Detalhes",
-    1
-  ),
-  createData(
-    "Manutenção de jardim",
-    "15/05",
-    "Cancelado",
-    "Jardinagem e paisagismo",
-    "#678662",
-    "Detalhes",
-    2
-  ),
-  createData(
-    "Reforma de cozinha de apartamento",
-    "05/05",
-    "Finalizado",
-    "Construção e reforma",
-    "#88785B",
-    "Detalhes",
-    3
-  ),
-  createData(
-    "Mudança do bairro de Messejana p/ bairro Guar...",
-    "01/05",
-    "Finalizado",
-    "Serviços de mudança",
-    "#4F5885",
-    "Detalhes",
-    4
-  ),
-  createData(
-    "Manutenção na parte elétrica de salão de beleza",
-    "19/04",
-    "Finalizado",
-    "Reparo elétrico",
-    "#278A83",
-    "Detalhes",
-    5
-  ),
-];
+import { useQuery } from "@tanstack/react-query";
+import { getAllServices } from "@/lib/services/client/services";
 
 const Servicetable = () => {
+  const { data: services } = useQuery({
+    queryKey: ["getAllUsers"],
+    queryFn: () => getAllServices(),
+    select: ({ data }) => data,
+  });
+
   const router = useRouter();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -88,8 +36,8 @@ const Servicetable = () => {
     setPage(0);
   };
 
-  const handleDetailsClick = () => {
-    router.push(`/detalhes/servico`);
+  const handleDetailsClick = (id: number) => {
+    router.push(`/detalhes/servico/${id}`);
   };
 
   return (
@@ -116,26 +64,28 @@ const Servicetable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row) => (
+          {services
+            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((service: any) => (
               <TableRow
-                key={row.title}
+                key={service.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   fontSize: "0.85rem",
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.title}
+                  {service.title}
                 </TableCell>
-                <TableCell align="center">{row.date}</TableCell>
-                <TableCell align="center">{row.status}</TableCell>
+                <TableCell align="center">
+                  {new Date(service.date_time).toLocaleDateString()}
+                </TableCell>
+                <TableCell align="center">{service.status}</TableCell>
                 <TableCell align="center">
                   <Chip
-                    label={row.category}
+                    label={service.category_id}
                     style={{
-                      backgroundColor: row.categoryColor,
+                      backgroundColor: "#165C84", // Mude para uma cor dinâmica, se necessário
                       color: "#FFF",
                     }}
                   />
@@ -144,10 +94,10 @@ const Servicetable = () => {
                   <Button
                     variant="text"
                     color="primary"
-                    onClick={() => handleDetailsClick(row.id)}
+                    onClick={() => handleDetailsClick(service.id)}
                     sx={{ textTransform: "none" }}
                   >
-                    {row.action}
+                    Detalhes
                   </Button>
                 </TableCell>
               </TableRow>
@@ -157,7 +107,7 @@ const Servicetable = () => {
 
       <TablePagination
         component="div"
-        count={rows.length}
+        count={services?.length || 0}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

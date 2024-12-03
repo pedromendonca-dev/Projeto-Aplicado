@@ -5,11 +5,11 @@ import { SupabaseService } from '../supabase/supabase.service';
 export class ServicesService {
   constructor(private readonly supabaseService: SupabaseService) {}
 
-  async create(user: any) {
+  async create(service: any) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('services')
-      .insert([user])
+      .insert([service])
       .select();
 
     return { data, error };
@@ -33,11 +33,11 @@ export class ServicesService {
     return { data, error };
   }
 
-  async update(id: number, user: any) {
+  async update(id: number, service: any) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('services')
-      .update(user)
+      .update(service)
       .eq('id', id);
     return { data, error };
   }

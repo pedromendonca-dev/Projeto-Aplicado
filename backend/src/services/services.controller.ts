@@ -8,8 +8,8 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { ServicesService } from './services.service';
 import { Response } from 'express';
+import { ServicesService } from './services.service';
 
 @Controller('services')
 export class ServicesController {
