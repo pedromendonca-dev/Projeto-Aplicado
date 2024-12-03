@@ -9,9 +9,11 @@ import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import { theme } from "@/lib/theme";
 import { AgendamentoProps } from "@/lib/interface/agendamento";
 import { AgendamentoFormType } from "@/lib/schemas/agendamento";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const AgendamentoForm = () => {
+  const { id } = useParams();
+
   const {
     handleSubmit,
     register,
@@ -22,7 +24,8 @@ const AgendamentoForm = () => {
   });
 
   const agendamentoSubmit = (data: AgendamentoProps) => {
-    console.log(data);
+    localStorage.setItem("service", JSON.stringify(data));
+    router.push(`/agendamento/finalizar/${id}`);
   };
 
   const router = useRouter();
@@ -58,9 +61,9 @@ const AgendamentoForm = () => {
                   label="Selecione os serviços que deseja"
                   {...register("categorias")}
                 >
-                  <MenuItem value="1">Limpeza Residencial</MenuItem>
-                  <MenuItem value="2">Jardinagem e Paisagismo</MenuItem>
-                  <MenuItem value="3">Construção e Reforma</MenuItem>
+                  <MenuItem value="Limpeza Residencial">Limpeza Residencial</MenuItem>
+                  <MenuItem value="Jardinagem e Paisagismo">Jardinagem e Paisagismo</MenuItem>
+                  <MenuItem value="Construção e Reforma">Construção e Reforma</MenuItem>
                 </Select>
               </FormControl>
               <Typography
@@ -108,12 +111,7 @@ const AgendamentoForm = () => {
             Cancelar
           </Typography>
 
-          <Button
-            px={theme.space.s8}
-            py={theme.space.s4}
-            fontSize={"12px"}
-            onClick={() => router.push("/agendamento/finalizar")}
-          >
+          <Button px={theme.space.s8} py={theme.space.s4} fontSize={"12px"}>
             Continuar Agendamento
           </Button>
         </Row>

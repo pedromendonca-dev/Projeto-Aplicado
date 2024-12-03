@@ -6,8 +6,20 @@ import React from "react";
 import { theme } from "@/lib/theme";
 import { Typography } from "@mui/material";
 import Layout from "@/components/layout/Layout";
+import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getServicesById } from "@/lib/services/client/services";
 
 const DetalhesServico = () => {
+  const { id } = useParams();
+
+  const { data: service } = useQuery({
+    queryKey: ["getServicesById", id],
+    queryFn: () => getServicesById({ serviceId: String(id) }),
+    select: ({ data }) => data,
+    enabled: !!id,
+  });
+
   return (
     <Layout header="Detalhes do serviço">
       <Row
@@ -82,7 +94,7 @@ const DetalhesServico = () => {
                 fontWeight={600}
                 color={theme.colors.pink[200]}
               >
-                Limpeza Residencial
+                {service?.category_id}
               </Typography>
             </Card>
             <Card
@@ -134,7 +146,7 @@ const DetalhesServico = () => {
             fontSize={12}
             fontWeight={300}
           >
-            Limpeza residencial em Messejana
+            {service?.title}
           </Typography>
           <Typography
             marginLeft={theme.space.s8}
@@ -151,9 +163,7 @@ const DetalhesServico = () => {
             fontSize={12}
             fontWeight={300}
           >
-            ”Gostaria de sua ajuda para realizar uma limpeza geral na minha
-            casa. Possuo muitas janelas que precisam de uma limpeza profunda e
-            só, não consigo.”
+            ”{service?.description}”
           </Typography>
         </Column>
         <Column width="auto">
@@ -172,7 +182,7 @@ const DetalhesServico = () => {
             fontSize={12}
             fontWeight={300}
           >
-            17/05/2024, 11:00
+            {service?.date_time}
           </Typography>
           <Typography
             marginLeft={theme.space.s8}
@@ -189,7 +199,7 @@ const DetalhesServico = () => {
             fontSize={12}
             fontWeight={300}
           >
-            Finalizado
+            {service?.status}
           </Typography>
         </Column>
       </Row>
