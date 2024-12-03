@@ -101,7 +101,7 @@ const CategoriesTable = () => {
                   {user.work_place?.slice(0, 30) + "..." || "N/A"}
                 </TableCell>
                 <TableCell align="center">
-                  {user.price ? `R$ ${user.price}` : "N/A"}
+                  {user.price ? `${user.price}` : "N/A"}
                 </TableCell>
                 <TableCell align="center">
                   <Rating

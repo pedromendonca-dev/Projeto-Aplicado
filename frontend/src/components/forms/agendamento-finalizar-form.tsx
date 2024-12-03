@@ -58,7 +58,7 @@ const ContainerDiv = styled.div(
 const FinalizarAgendamentoForm = () => {
   const router = useRouter();
 
-  const { id } = useParams();
+  const id = localStorage.getItem("userId")
 
   const { data: user } = useQuery({
     queryKey: ["getUserByIds", id],
@@ -96,6 +96,9 @@ const FinalizarAgendamentoForm = () => {
     const get = JSON.parse(localStorage.getItem("service"));
     localStorage.setItem("service", JSON.stringify({ ...get, ...data }));
   };
+
+  const service = JSON.parse(localStorage.getItem("service"));
+
 
   return (
     <ContainerDiv>
@@ -452,9 +455,7 @@ const FinalizarAgendamentoForm = () => {
                     textAlign={"left"}
                     sx={{ mb: 2.8 }}
                   >
-                    ”Gostaria de sua ajuda para realizar uma limpeza geral na
-                    minha casa. Possuo muitas janelas que precisam de uma
-                    limpeza profunda e só, não consigo.”
+                    {service.info}
                   </Typography>
                 </Row>
               </Item>
