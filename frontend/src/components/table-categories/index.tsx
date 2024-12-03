@@ -11,71 +11,19 @@ import Paper from "@mui/material/Paper";
 import { Button, Rating } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import styled from "styled-components";
-
-function createData(
-  photo: string,
-  name: string,
-  espec: string,
-  area: string,
-  price: string,
-  avaliation: string,
-  id: number
-) {
-  return { photo, name, espec, area, price, avaliation, id };
-}
-
-const rows = [
-  createData(
-    "http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofissional_exemplo.d55196c6.png&w=256&q=75",
-    "Ana Silva",
-    "Limpeza residencial",
-    "Messejana",
-    "R$ 100,00",
-    "10",
-    1
-  ),
-  createData(
-    "https://avatars.githubusercontent.com/u/66935004?v=4",
-    "Marianne Gomes",
-    "Limpeza residencial",
-    "Messejana",
-    "R$ 100,00",
-    "10",
-    1
-  ),
-  createData(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&s",
-    "Pedro Lucas",
-    "Limpeza residencial",
-    "Messejana",
-    "R$ 100,00",
-    "10",
-    1
-  ),
-  createData(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&s",
-    "Lucas Rangel",
-    "Limpeza residencial",
-    "Messejana",
-    "R$ 100,00",
-    "10",
-    1
-  ),
-  createData(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&s",
-    "Caio Gomes",
-    "Limpeza residencial",
-    "Messejana",
-    "R$ 100,00",
-    "10",
-    1
-  ),
-];
+import { getAllUsers } from "@/lib/services/client/users";
+import { useQuery } from "@tanstack/react-query";
 
 const CategoriesTable = () => {
   const router = useRouter();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const { data: users } = useQuery({
+    queryKey: ["getAllUsers"],
+    queryFn: () => getAllUsers(),
+    select: ({ data }) => data,
+  });
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -88,9 +36,13 @@ const CategoriesTable = () => {
     setPage(0);
   };
 
-  const handleDetailsClick = () => {
-    router.push(`/detalhes`);
+  const handleDetailsClick = (id: string) => {
+    router.push(`/detalhes/${id}`);
   };
+
+  const filteredUsers = users?.filter(
+    (user: any) => user.type_user === "professional"
+  );
 
   return (
     <TableContainer component={Paper}>
@@ -122,11 +74,11 @@ const CategoriesTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row, index) => (
+          {filteredUsers
+            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((user: any) => (
               <TableRow
-                key={index}
+                key={user.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   fontSize: "0.85rem",
@@ -135,37 +87,35 @@ const CategoriesTable = () => {
                 <TableCell component="th" scope="row">
                   <ImageStyle
                     alt="photo"
-                    src={row.photo}
+                    src={
+                      user.photo ||
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&s"
+                    }
                     width={50}
                     height={50}
                   />
                 </TableCell>
-                <TableCell align="center">{row.name}</TableCell>
-                <TableCell align="center">{row.espec}</TableCell>
-                <TableCell align="center">{row.area}</TableCell>
-                <TableCell align="center">{row.price}</TableCell>
+                <TableCell align="center">{user.name}</TableCell>
+                <TableCell align="center">{user.espec?.slice(0, 18) + "..." || "N/A"}</TableCell>
+                <TableCell align="center">
+                  {user.work_place?.slice(0, 30) + "..." || "N/A"}
+                </TableCell>
+                <TableCell align="center">
+                  {user.price ? `${user.price}` : "N/A"}
+                </TableCell>
                 <TableCell align="center">
                   <Rating
                     name="half-rating-read"
-                    defaultValue={5}
+                    defaultValue={Number(user.nota)}
                     precision={0.5}
                     readOnly
                   />
                 </TableCell>
-                {/* <TableCell align="center">
-                  <Chip
-                    label={row.category}
-                    style={{
-                      backgroundColor: row.categoryColor,
-                      color: "#FFF",
-                    }}
-                  />
-                </TableCell> */}
                 <TableCell align="center">
                   <Button
                     variant="text"
                     color="primary"
-                    onClick={() => handleDetailsClick()}
+                    onClick={() => handleDetailsClick(user.id)}
                     sx={{ textTransform: "none" }}
                   >
                     Detalhes
@@ -178,7 +128,7 @@ const CategoriesTable = () => {
 
       <TablePagination
         component="div"
-        count={rows.length}
+        count={filteredUsers?.length || 0}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

@@ -11,6 +11,23 @@ import { CategoriaProps } from "@/lib/interface/categoria";
 import Layout from "@/components/layout/Layout";
 import { useRouter } from "next/navigation";
 
+// Definindo a tipagem para o tema
+interface ThemeProps {
+  space: {
+    s5: string;
+    s7: string;
+    s8: string;
+  };
+  colors: {
+    white: string;
+  };
+}
+
+// Estendendo os tipos do styled-components para incluir o tema
+declare module "styled-components" {
+  export interface DefaultTheme extends ThemeProps {}
+}
+
 export default function MainBody() {
   const router = useRouter();
 
@@ -71,32 +88,20 @@ export default function MainBody() {
           </Column>
         ))}
       </FlexBox>
-      {/* <ButtonDiv>
-        <Button
-          variant="contained"
-          onClick={() => {
-            router.push("/categorias/criar");
-          }}
-        >
-          Criar Categoria
-        </Button>
-      </ButtonDiv> */}
     </Layout>
   );
 }
 
-const FlexBox = styled.div(
-  () => `
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    align-items: flex-start;
-    padding-right: ${(props) => props.theme.space.s8};
-    padding-left: ${(props) => props.theme.space.s8};
-    padding-top: ${(props) => props.theme.space.s7};
-    padding-bottom: ${(props) => props.theme.space.s5};
-    height: 65%;
-    width: 98%;
-    padding: 3rem 2rem
-  `
-);
+const FlexBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+  padding-right: ${(props) => props.theme.space.s8};
+  padding-left: ${(props) => props.theme.space.s8};
+  padding-top: ${(props) => props.theme.space.s7};
+  padding-bottom: ${(props) => props.theme.space.s5};
+  height: 65%;
+  width: 98%;
+  padding: 3rem 2rem;
+`;

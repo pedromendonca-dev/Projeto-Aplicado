@@ -1,16 +1,16 @@
 import { apiClient } from "../api/api-client";
 
-export const getAllUsers = async () => {
-  const response = await apiClient.get("/api/usuarios");
+export const getAllServices = async () => {
+  const response = await apiClient.get("/api/servicos");
   return response.data;
 };
 
-export const getUserById = async ({ userID }: { userID?: string }) => {
+export const getServicesById = async ({ serviceId }: { serviceId?: string }) => {
   const response = await apiClient.get<{
     data: any;
-  }>(`/api/usuarios/${userID}`, {
+  }>(`/api/servicos/${serviceId}`, {
     params: {
-      userID,
+      serviceId,
     },
     headers: {
       "Cache-Control": "no-cache",

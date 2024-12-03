@@ -8,6 +8,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { apiClient } from "@/lib/services/api/api-client";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 interface AlertDialogProps {
   buttonTitle: string;
@@ -25,6 +28,17 @@ export default function AlertDialog({ buttonTitle }: AlertDialogProps) {
   };
 
   const router = useRouter();
+
+  const mutateCreate = useMutation({
+    mutationFn: (data) => {
+      return apiClient.post("/api/servicos", data);
+    },
+    onSuccess: () => {
+      toast.success("Serviço solicitado com sucesso");
+      router.push("/contractservices");
+    },
+    onError: () => {},
+  });
 
   return (
     <React.Fragment>
@@ -44,7 +58,7 @@ export default function AlertDialog({ buttonTitle }: AlertDialogProps) {
           <Typography fontSize={16} fontWeight={500} mt={1}>
             Você está prestes a confirmar o agendamento para Limpeza
             Residencial. <br />
-            Dia: 10/10/2024 <br />
+            Dia: 08/12/2024 <br />
             Pagamento: Pix
           </Typography>
         </DialogContent>
@@ -58,7 +72,17 @@ export default function AlertDialog({ buttonTitle }: AlertDialogProps) {
           <Button
             paddingX={32}
             autoFocus
-            onClick={() => router.push("/contractservices")}
+            onClick={() => {
+              const info = JSON.parse(localStorage.getItem("service"));
+              const payload = {
+                title: info.titulo,
+                date_time: "08/12/2024, 11:00",
+                status: "Não iniciado",
+                category_id: info.categorias,
+                description: info.info
+              };
+              mutateCreate.mutate(payload)
+            }}
           >
             Aceitar
           </Button>

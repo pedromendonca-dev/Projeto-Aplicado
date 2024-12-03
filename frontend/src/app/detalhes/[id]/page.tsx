@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 "use client";
 import { Column } from "@/components/column";
-import Header from "@/components/header";
-import { SideNavbar } from "@/components/side-navbar";
 import styled, { css } from "styled-components";
 import { theme } from "@/lib/theme";
 import { Row } from "@/components/row";
@@ -10,36 +10,36 @@ import { Avatar, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import ProfissionalPhoto from "@/assets/images/profissional_exemplo.png";
-import Galeria1 from "@/assets/images/galeria_1.png";
-import Galeria2 from "@/assets/images/galeria_2.png";
-import Galeria3 from "@/assets/images/galeria_1.png";
 import ratings from "@/assets/images/estrelas.png";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { getUserById } from "@/lib/services/client/users";
+import { useQuery } from "@tanstack/react-query";
 
 const Detalhes = () => {
-  const galeria = [Galeria1, Galeria2, Galeria3];
+  const { id } = useParams();
+
+  const { data: user } = useQuery({
+    queryKey: ["getUserByIds", id],
+    queryFn: () => getUserById({ userID: String(id) }),
+    select: ({ data }) => data,
+    enabled: !!id,
+  });
+
+  const galeria = user?.photos?.split(",,");
 
   const profGeral = {
-    nome: "Ana Silva",
-    especialidade: "Serviços de limpeza residencial",
-    sobre:
-      "Olá, meu nome é Ana Silva e ofereço serviços de limpeza residencial há mais de 5 anos. Meu objetivo é proporcionar um ambiente limpo e acolhedor para você e sua família, utilizando produtos de alta qualidade e técnicas eficientes.",
+    nome: user?.name,
+    especialidade: user?.espec,
+    sobre: user?.about,
   };
 
   const profDetalhes = {
-    atuacao_bairros: "Aldeota, Meireles, Guararapes, Messejana e Papicu",
-    preco_detalhes: "R$ 100,00 (Serviços extras , valor a combinar)",
-    disponibilidade_detalhes: [
-      "Segunda a Sexta: 7h - 12h",
-      "Sábado e Domingo: 10h - 14h",
-    ],
-    contato: {
-      telefone: "(85) 99948-3252",
-      email: "anasilva@gmail.com",
-      social: "@analsilvam",
-    },
+    atuacao_bairros: user?.work_place,
+    preco_detalhes: `${user?.price} (Serviços extras , valor a combinar)`,
+    disponibilidade_detalhes: user?.disponibilidade?.split("\n"),
+    contato: user?.social?.split("\n"),
   };
 
   const router = useRouter();
@@ -90,7 +90,6 @@ const Detalhes = () => {
               </Typography>
             </Column>
           </Row>
-          {/* Começo do Card de Especializações, apagar depois*/}
           <Row
             width="82%"
             height="330px"
@@ -214,7 +213,7 @@ const Detalhes = () => {
                 paddingLeft={theme.space.s7}
                 overflow="hidden"
               >
-                {profDetalhes.disponibilidade_detalhes[0]}
+                {profDetalhes.disponibilidade_detalhes?.[0]}
               </Typography>
               <Typography
                 fontSize={12}
@@ -223,67 +222,40 @@ const Detalhes = () => {
                 paddingLeft={theme.space.s7}
                 overflow="hidden"
               >
-                {profDetalhes.disponibilidade_detalhes[1]}
+                {profDetalhes.disponibilidade_detalhes?.[1]}
               </Typography>
               <Divider />
+
               <Typography
                 fontSize={16}
                 fontWeight={600}
-                paddingTop={theme.space.s5}
-                marginBottom={theme.space.s3}
+                marginBottom={theme.space.s4}
+                paddingTop={theme.space.s6}
                 paddingLeft={theme.space.s7}
                 overflow="hidden"
               >
-                Contato
+                Rede sociais
               </Typography>
-              <Row marginBottom={theme.space.s1}>
-                <Typography
-                  fontSize={12}
-                  fontWeight={550}
-                  marginBottom={theme.space.s2}
-                  paddingLeft={theme.space.s7}
-                  paddingRight={theme.space.s1}
-                  overflow="hidden"
-                >
-                  Telefone:
-                </Typography>
-                <Typography fontSize={12} fontWeight={100} overflow="hidden">
-                  {profDetalhes.contato.telefone}
-                </Typography>
-              </Row>
-              <Row marginBottom={theme.space.s1}>
-                <Typography
-                  fontSize={12}
-                  fontWeight={550}
-                  marginBottom={theme.space.s2}
-                  paddingLeft={theme.space.s7}
-                  paddingRight={theme.space.s1}
-                  overflow="hidden"
-                >
-                  E-mail:
-                </Typography>
-                <Typography fontSize={12} fontWeight={100} overflow="hidden">
-                  {profDetalhes.contato.email}
-                </Typography>
-              </Row>
-              <Row marginBottom={theme.space.s1}>
-                <Typography
-                  fontSize={12}
-                  fontWeight={550}
-                  marginBottom={theme.space.s2}
-                  paddingLeft={theme.space.s7}
-                  paddingRight={theme.space.s1}
-                  overflow="hidden"
-                >
-                  Redes sociais:
-                </Typography>
-                <Typography fontSize={12} fontWeight={100} overflow="hidden">
-                  {profDetalhes.contato.social}
-                </Typography>
-              </Row>
+              <Typography
+                fontSize={12}
+                fontWeight={100}
+                marginBottom={theme.space.s4}
+                paddingLeft={theme.space.s7}
+                overflow="hidden"
+              >
+                {profDetalhes.contato?.[0]}
+              </Typography>
+              <Typography
+                fontSize={12}
+                fontWeight={100}
+                marginBottom={theme.space.s6}
+                paddingLeft={theme.space.s7}
+                overflow="hidden"
+              >
+                {profDetalhes.contato?.[1]}
+              </Typography>
             </Column>
           </Row>
-          {/* Começo da Galeria de Fotos, apagar depois*/}
           <Column
             width="82%"
             paddingX={theme.space.s6}
@@ -297,8 +269,9 @@ const Detalhes = () => {
               Galeria de fotos
             </Typography>
             <Row width="98%" marginTop={theme.space.s3}>
-              {galeria.map((image, index) => (
+              {galeria?.map((image: string, index: number) => (
                 <Image
+                  key={index}
                   src={image}
                   alt={`image-${index}`}
                   width={292}
@@ -308,7 +281,6 @@ const Detalhes = () => {
               ))}
             </Row>
           </Column>
-          {/* Agendamento ...*/}
           <Row
             width="82%"
             height="402px"
@@ -332,7 +304,9 @@ const Detalhes = () => {
                 </Typography>
               </Row>
               <Column width={130}>
-                <Button onClick={() => router.push("/agendamento/inicial")}>
+                <Button
+                  onClick={() => router.push(`/agendamento/inicial/${id}`)}
+                >
                   08/11 - 20:00
                 </Button>
               </Column>
