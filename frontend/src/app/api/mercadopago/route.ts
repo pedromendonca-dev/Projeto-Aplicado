@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
     payment_method_id: "bolbradesco",
     payer: {
       email: "teste@gmail.com",
-      first_name: "Lucas",
-      last_name: "Silva",
+      first_name: "Marianne",
+      last_name: "Gomes",
       identification: {
         type: "CPF",
         number: "19119119100",
