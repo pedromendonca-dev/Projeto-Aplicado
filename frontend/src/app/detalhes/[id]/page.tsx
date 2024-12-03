@@ -457,7 +457,7 @@ const Detalhes = () => {
 };
 
 const FlexBox = styled.div(
-  ({ theme }) => `
+  () => `
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
@@ -468,6 +468,8 @@ const FlexBox = styled.div(
     padding-bottom: ${(props) => props.theme.space.s5};
     height: 65%;
     width: 98%;
+    margin-top: 30px !important;
+    margin-left: 30px !important
   `
 );
 
