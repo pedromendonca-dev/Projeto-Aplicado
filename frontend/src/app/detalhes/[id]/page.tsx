@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 "use client";
+
 import { Column } from "@/components/column";
 import styled, { css } from "styled-components";
 import { theme } from "@/lib/theme";
@@ -12,12 +13,16 @@ import Divider from "@mui/material/Divider";
 import ProfissionalPhoto from "@/assets/images/profissional_exemplo.png";
 import ratings from "@/assets/images/estrelas.png";
 import Layout from "@/components/layout/Layout";
+import { useState } from "react";
 import { Button } from "@/components";
+import FeedbackDialog from "@/components/feedback-dialog";
 import { useParams, useRouter } from "next/navigation";
 import { getUserById } from "@/lib/services/client/users";
 import { useQuery } from "@tanstack/react-query";
 
 const Detalhes = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const { id } = useParams();
 
   const { data: user } = useQuery({
@@ -353,7 +358,7 @@ const Detalhes = () => {
           {/* Feedback */}
           <Row
             width="82%"
-            height="402px"
+            height="420px"
             backgroundColor={theme.colors.white}
             border="1px solid #E7E7E7"
             marginBottom={theme.space.s4}
@@ -427,6 +432,22 @@ const Detalhes = () => {
                 </Column>
                 <Image src={ratings} alt={"rating"} />
               </Row>
+              <Button
+                width={"136px"}
+                padding={theme.space.s2}
+                alignSelf={"flex-end"}
+                marginTop={theme.space.s2}
+                onClick={() => setIsDialogOpen(true)}
+              >
+                Avaliar Serviço
+              </Button>
+
+              <FeedbackDialog
+                open={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                providerId="f472d043-09cc-4c84-8d0e-f6b7f5a39b18"
+                consumerId={localStorage.getItem("userId") || ""}
+              />
             </Column>
           </Row>
         </Column>
@@ -436,7 +457,7 @@ const Detalhes = () => {
 };
 
 const FlexBox = styled.div(
-  ({ theme }) => css`
+  () => `
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
@@ -447,6 +468,8 @@ const FlexBox = styled.div(
     padding-bottom: ${(props) => props.theme.space.s5};
     height: 65%;
     width: 98%;
+    margin-top: 30px !important;
+    margin-left: 30px !important
   `
 );
 

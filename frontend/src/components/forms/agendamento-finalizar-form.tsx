@@ -24,6 +24,8 @@ import PixSvg from "@/assets/images/pix.svg";
 import PagamentoImg from "@/assets/images/pagamento.svg";
 import Boleto from "@/assets/images/boleto.svg";
 import Calendario from "@/assets/images/calendar.svg";
+import { createMercadoPagoPayment } from "@/lib/services/payment";
+import { useState } from "react";
 import { getUserById } from "@/lib/services/client/users";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -58,7 +60,10 @@ const ContainerDiv = styled.div(
 const FinalizarAgendamentoForm = () => {
   const router = useRouter();
 
-  const id = localStorage.getItem("userId")
+  const [isLoading, setIsLoading] = useState(false);
+  const [boletoUrl, setBoletoUrl] = useState<string | null>(null);
+
+  const id = localStorage.getItem("userId");
 
   const { data: user } = useQuery({
     queryKey: ["getUserByIds", id],
@@ -99,6 +104,53 @@ const FinalizarAgendamentoForm = () => {
 
   const service = JSON.parse(localStorage.getItem("service"));
 
+  const handlePayment = async () => {
+    setIsLoading(true);
+    setBoletoUrl(null);
+
+    try {
+      const response = await fetch("/api/mercadopago", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Log the raw response for debugging
+      const responseText = await response.text();
+
+      // Try to parse the response as JSON
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("JSON Parse Error:", parseError);
+        throw new Error("Invalid response from server");
+      }
+
+      // Check if the response contains a boleto URL
+      if (data.boleto) {
+        setBoletoUrl(data.boleto);
+
+        // Open the boleto URL in a new tab
+        window.open(data.boleto, "_blank");
+      } else {
+        // Handle case where no boleto URL is returned
+        throw new Error("No boleto URL received");
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+
+      // More detailed error handling
+      if (error instanceof Error) {
+        alert(`Erro ao gerar boleto: ${error.message}`);
+      } else {
+        alert("Falha ao gerar boleto. Tente novamente.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <ContainerDiv>
@@ -336,9 +388,16 @@ const FinalizarAgendamentoForm = () => {
                   variant="image_card"
                   width="95%"
                   justifyContent="start"
+                  onClick={handlePayment}
                 >
-                  <Image src={Boleto} alt="boleto-bancario" /> Boleto bancário
+                  <Image src={Boleto} alt="boleto-bancario" />
+                  Boleto bancário
                 </Button>
+                {boletoUrl && (
+                  <a href={boletoUrl} target="_blank" rel="noopener noreferrer">
+                    Abrir Boleto
+                  </a>
+                )}
 
                 <Button
                   mb="s2"

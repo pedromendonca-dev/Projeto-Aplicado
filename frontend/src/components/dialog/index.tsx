@@ -59,7 +59,7 @@ export default function AlertDialog({ buttonTitle }: AlertDialogProps) {
             Você está prestes a confirmar o agendamento para Limpeza
             Residencial. <br />
             Dia: 08/12/2024 <br />
-            Pagamento: Pix
+            Pagamento: Boleto bancário
           </Typography>
         </DialogContent>
         <DialogActions sx={{ paddingBottom: 2, paddingX: 2 }}>

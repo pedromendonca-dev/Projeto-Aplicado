@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -18,7 +20,9 @@
     "@types/styled-system": "^5.1.22",
     "axios": "^1.7.7",
     "iron-session": "^8.0.3",
+    "mercadopago": "^2.0.15",
     "next": "14.2.8",
+    "pagseguro-nodejs": "^0.1.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
@@ -28,9 +32,11 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/mercadopago": "^1.5.11",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cypress": "^13.16.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
     "typescript": "^5"
