@@ -1,58 +1,85 @@
+// src/users/users.service.ts
 import { Injectable } from '@nestjs/common';
-import { SupabaseService } from '../supabase/supabase.service';
+import { FirebaseService } from '../firebase/firebase.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly supabaseService: SupabaseService) {}
+  private readonly collectionName = 'users';
+
+  constructor(private readonly firebaseService: FirebaseService) {}
 
   async create(user: any) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('users')
-      .insert([user])
-      .select();
-
-    return { data, error };
+    try {
+      const docRef = await this.firebaseService
+        .getFirestore()
+        .collection(this.collectionName)
+        .add(user);
+      
+      const createdUser = await docRef.get();
+      return { data: { id: docRef.id, ...createdUser.data() }, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
   }
 
   async findAll() {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('users')
-      .select('*');
-    return { data, error };
-  }
-
-  async findOne(id: number) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('users')
-      .select('*')
-      .eq('id', id)
-      .single();
-    return { data, error };
-  }
-
-  async update(id: number, user: any) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('users')
-      .update(user)
-      .eq('id', id);
-    return { data, error };
-  }
-
-  async remove(id: number) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('users')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      return { error };
+    try {
+      const snapshot = await this.firebaseService
+        .getFirestore()
+        .collection(this.collectionName)
+        .get();
+      
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
     }
+  }
 
-    return { data };
+  async findOne(id: string) {
+    try {
+      const doc = await this.firebaseService
+        .getFirestore()
+        .collection(this.collectionName)
+        .doc(id)
+        .get();
+      
+      if (!doc.exists) {
+        return { data: null, error: { message: 'User not found' } };
+      }
+      
+      return { data: { id: doc.id, ...doc.data() }, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async update(id: string, user: any) {
+    try {
+      await this.firebaseService
+        .getFirestore()
+        .collection(this.collectionName)
+        .doc(id)
+        .update(user);
+      
+      const updatedDoc = await this.findOne(id);
+      return updatedDoc;
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async remove(id: string) {
+    try {
+      await this.firebaseService
+        .getFirestore()
+        .collection(this.collectionName)
+        .doc(id)
+        .delete();
+      
+      return { data: { id, message: 'User deleted successfully' }, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
   }
 }
