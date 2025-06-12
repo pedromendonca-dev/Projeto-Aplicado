@@ -1,6 +1,6 @@
 export interface CategoriaProps {
-    nome: string,
-    image?: string,
+    titulo: string,
+    imagemUrl?: string,
     description: string,
     id?: string
     name?: string

@@ -66,8 +66,8 @@ export default function MainBody() {
             onClick={() => router.push(`/categorias/detalhes/${category.id}`)}
           >
             <img
-              src={category.image}
-              alt={category.name}
+              src={category.imagemUrl}
+              alt={category.titulo}
               width={252}
               height={120}
               style={{
@@ -83,7 +83,7 @@ export default function MainBody() {
               ml={theme.space.s5}
               mt={theme.space.s4}
             >
-              {category.name}
+              {category.titulo}
             </Typography>
           </Column>
         ))}
