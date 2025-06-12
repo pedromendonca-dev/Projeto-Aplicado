@@ -1,58 +1,62 @@
 import { Injectable } from '@nestjs/common';
-import { SupabaseService } from '../supabase/supabase.service';
+import { FirebaseAdminService } from 'src/firebase/firebase-admin.service';
 
 @Injectable()
 export class ServicesService {
-  constructor(private readonly supabaseService: SupabaseService) {}
+  constructor(private readonly firebaseAdminService: FirebaseAdminService) {}
+
+  private collection() {
+    return this.firebaseAdminService.getFirestore().collection('services');
+  }
 
   async create(service: any) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('services')
-      .insert([service])
-      .select();
-
-    return { data, error };
+    try {
+      const docRef = await this.collection().add(service);
+      const doc = await docRef.get();
+      return { data: { id: doc.id, ...doc.data() }, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
   }
 
   async findAll() {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('services')
-      .select('*');
-    return { data, error };
-  }
-
-  async findOne(id: number) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('services')
-      .select('*')
-      .eq('id', id)
-      .single();
-    return { data, error };
-  }
-
-  async update(id: number, service: any) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('services')
-      .update(service)
-      .eq('id', id);
-    return { data, error };
-  }
-
-  async remove(id: number) {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('services')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      return { error };
+    try {
+      const snapshot = await this.collection().get();
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
     }
+  }
 
-    return { data };
+  async findOne(id: string) {
+    try {
+      const doc = await this.collection().doc(id).get();
+      if (!doc.exists) {
+        return { data: null, error: 'Service not found' };
+      }
+      return { data: { id: doc.id, ...doc.data() }, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async update(id: string, service: any) {
+    try {
+      await this.collection().doc(id).update(service);
+      const updatedDoc = await this.collection().doc(id).get();
+      return { data: { id: updatedDoc.id, ...updatedDoc.data() }, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async remove(id: string) {
+    try {
+      await this.collection().doc(id).delete();
+      return { data: { id }, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
   }
 }

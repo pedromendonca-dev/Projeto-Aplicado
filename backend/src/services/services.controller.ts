@@ -13,13 +13,13 @@ import { ServicesService } from './services.service';
 
 @Controller('services')
 export class ServicesController {
-  constructor(private readonly servicesService: ServicesService) {}
+  constructor(private readonly servicesService: ServicesService) { }
 
   @Post()
-  async create(@Body() user: any) {
-    const result = await this.servicesService.create(user);
+  async create(@Body() service: any) {
+    const result = await this.servicesService.create(service);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error.message || 'Error creating service');
     }
     return result.data;
   }
@@ -31,28 +31,28 @@ export class ServicesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: any) {
     const result = await this.servicesService.findOne(id);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error || 'Service not found');
     }
     return result.data;
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() user: any) {
-    const result = await this.servicesService.update(id, user);
+  async update(@Param('id') id: any, @Body() service: any) {
+    const result = await this.servicesService.update(id, service);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error || 'Error updating service');
     }
     return result.data;
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id') id: any) {
     const result = await this.servicesService.remove(id);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error || 'Error deleting service');
     }
     return result.data;
   }

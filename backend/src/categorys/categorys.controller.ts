@@ -11,7 +11,7 @@ import {
 import { CategorysService } from './categorys.service';
 import { Response } from 'express';
 
-@Controller('categorys')
+@Controller('categorias')
 export class CategorysController {
   constructor(private readonly categorysService: CategorysService) {}
 
@@ -31,7 +31,7 @@ export class CategorysController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: any) {
     const result = await this.categorysService.findOne(id);
     if (result.error) {
       throw new Error(result.error.message);
@@ -40,7 +40,7 @@ export class CategorysController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() user: any) {
+  async update(@Param('id') id: any, @Body() user: any) {
     const result = await this.categorysService.update(id, user);
     if (result.error) {
       throw new Error(result.error.message);
@@ -49,7 +49,7 @@ export class CategorysController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id') id: any) {
     const result = await this.categorysService.remove(id);
     if (result.error) {
       throw new Error(result.error.message);

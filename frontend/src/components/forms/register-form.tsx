@@ -84,28 +84,28 @@ const RegisterForm = () => {
         </Column>
         <Form onSubmit={handleSubmit(registerSubmit)}>
           <Column height="100%">
-            <TextField label="Nome" sx={{ mb: 2 }} {...register("name")} />
+            <TextField label="Nome" sx={{ mb: 2 }} {...register("nome")} />
             <TextField
               label="Email"
               type="email"
               sx={{ mb: 2 }}
               {...register("email")}
             />
-            <TextField label="Telefone" sx={{ mb: 2 }} {...register("phone")} />
+            <TextField label="Telefone" sx={{ mb: 2 }} {...register("telefone")} />
 
             <FormControl fullWidth sx={{ mb: 2 }}>
               <InputLabel>Tipo de usuário</InputLabel>
-              <Select {...register("type_user")} label="Tipo de usuário">
-                <MenuItem value="client">Cliente</MenuItem>
+              <Select {...register("tipoUsuario")} label="Tipo de usuário">
+                <MenuItem value="cliente">Cliente</MenuItem>
                 <MenuItem value="professional">Profissional</MenuItem>
               </Select>
             </FormControl>
 
             <TextField
               label="Senha"
-              type="password"
+              type="senha"
               sx={{ mb: 4 }}
-              {...register("password")}
+              {...register("senha")}
             />
             <Button mb="s3" disabled={!isValid}>
               Finalizar cadastro

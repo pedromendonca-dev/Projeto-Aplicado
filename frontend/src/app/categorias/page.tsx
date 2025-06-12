@@ -38,7 +38,7 @@ export default function MainBody() {
   } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3001/categorys");
+      const response = await axios.get("http://localhost:3000/categorias");
       return response.data;
     },
   });

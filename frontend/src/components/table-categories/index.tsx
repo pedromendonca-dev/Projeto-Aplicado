@@ -41,7 +41,7 @@ const CategoriesTable = () => {
   };
 
   const filteredUsers = users?.filter(
-    (user: any) => user.type_user === "professional"
+    (user: any) => user.tipoUsuario === "professional"
   );
 
   return (

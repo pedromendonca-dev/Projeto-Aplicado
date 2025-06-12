@@ -8,7 +8,7 @@ export const profileFormSchema = z.object({
   email: z
     .string()
     .email({ message: "Digite um e-mail válido." }),
-  phone: z
+  telefone: z
     .string()
     .regex(/^\+?[1-9]\d{1,14}$/, { message: "Digite um telefone válido." }), // 
   about: z

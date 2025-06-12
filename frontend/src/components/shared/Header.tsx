@@ -25,7 +25,7 @@ export default function Header({ name = 'Categorias' }: HeaderProps) {
     queryKey: ["user", localStorage.getItem("userId")],
     queryFn: async () => {
       const response = await axios.get(
-        `http://localhost:3001/users/${localStorage.getItem("userId")}`
+        `http://localhost:3000/users/${localStorage.getItem("userId")}`
       );
       return response.data;
     },

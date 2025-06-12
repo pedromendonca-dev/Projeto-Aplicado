@@ -1,8 +1,8 @@
 
 export interface RegisterProps {
-  name: string;
+  nome: string;
   email: string;
-  phone: string;
-  password: string;
-  type_user: string;
+  telefone: string;
+  senha: string;
+  tipoUsuario: string;
 }

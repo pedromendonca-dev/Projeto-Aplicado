@@ -17,7 +17,7 @@ const ProfileForm: React.FC = () => {
   const [formValues, setFormValues] = useState<ProfileFormValues>({
     name: "",
     email: "",
-    phone: "",
+    telefone: "",
     about: "",
     locations: "",
     price: "",
@@ -59,7 +59,7 @@ const ProfileForm: React.FC = () => {
     setFormValues({
       name: "",
       email: "",
-      phone: "",
+      telefone: "",
       about: "",
       locations: "",
       price: "",
@@ -98,12 +98,12 @@ const ProfileForm: React.FC = () => {
         <FormField>
           <Label variant="body1">Telefone:</Label>
           <StyledTextField
-            name="phone"
+            name="telefone"
             placeholder="Digite seu telefone"
-            value={formValues.phone}
+            value={formValues.telefone}
             onChange={handleChange}
-            error={!!formErrors.phone}
-            helperText={formErrors.phone}
+            error={!!formErrors.telefone}
+            helperText={formErrors.telefone}
           />
         </FormField>
         <FormField>

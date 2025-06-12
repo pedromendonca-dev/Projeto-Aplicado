@@ -34,7 +34,7 @@ export default function PerfilBody() {
   } = useQuery({
     queryKey: ["user", userId],
     queryFn: async () => {
-      const response = await axios.get(`http://localhost:3001/users/${userId}`);
+      const response = await axios.get(`http://localhost:3000/users/${userId}`);
       return response.data;
     },
   });

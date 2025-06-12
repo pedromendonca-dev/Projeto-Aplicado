@@ -28,7 +28,7 @@ import Banner from "@/assets/images/login-banner.svg";
 
 export interface UserProps {
   email: string;
-  password: string;
+  senha: string;
 }
 
 const LoginForm = () => {
@@ -52,7 +52,7 @@ const LoginForm = () => {
   const loginSubmit = (data: LoginProps) => {
     const filterLogin = users?.filter(
       (item: UserProps) =>
-        item.email === data.email && item.password == data.password
+        item.email === data.email && item.senha == data.senha
     )?.[0];
 
     if (!filterLogin) {
@@ -64,7 +64,7 @@ const LoginForm = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    window.open("http://localhost:3001/auth/google", "_self");
+    window.open("http://localhost:3000/auth/google", "_self");
   };
 
   return (
@@ -131,7 +131,7 @@ const LoginForm = () => {
             />
             <TextField
               label="Senha"
-              type="password"
+              type="senha"
               sx={{
                 mb: 2,
                 "& .MuiOutlinedInput-root": {
@@ -156,7 +156,7 @@ const LoginForm = () => {
                     color: theme.colors.green[100],
                   },
               }}
-              {...register("password")}
+              {...register("senha")}
             />
             <Row justifyContent="space-between" alignItems="center" mb="s4">
               <FormControlLabel
@@ -169,7 +169,7 @@ const LoginForm = () => {
               {/* <Typography
                 fontSize="12px"
                 sx={{ color: theme.colors.blue[100] }}
-                onClick={() => route.push("/forgot-password")}
+                onClick={() => route.push("/forgot-senha")}
               >
                 Esqueci minha senha
               </Typography> */}

@@ -82,7 +82,7 @@ const FinalizarAgendamentoForm = () => {
       nome: user?.name,
       sobrenome: user?.sobrenome,
       email: user?.email,
-      contato: user?.phone,
+      contato: user?.telefone,
       cep: user?.cep,
       rua: user?.rua,
       numero: user?.number,

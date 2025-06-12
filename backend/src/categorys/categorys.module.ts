@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CategorysService } from './categorys.service';
-import { SupabaseService } from '../supabase/supabase.service';
-import { ConfigModule } from '@nestjs/config';
+import { FirebaseAdminModule } from 'src/firebase/firebase-admin.module';
 import { CategorysController } from './categorys.controller';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [FirebaseAdminModule],
+  providers: [CategorysService],
   controllers: [CategorysController],
-  providers: [CategorysService, SupabaseService],
+  exports: [CategorysService],
 })
 export class CategorysModule {}

@@ -19,7 +19,7 @@ export class ServicesController {
   async create(@Body() user: any) {
     const result = await this.servicesService.create(user);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error.message || 'Error creating service');
     }
     return result.data;
   }
@@ -31,28 +31,28 @@ export class ServicesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: string) {
     const result = await this.servicesService.findOne(id);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error);
     }
     return result.data;
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() user: any) {
+  async update(@Param('id') id: string, @Body() user: any) {
     const result = await this.servicesService.update(id, user);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error);
     }
     return result.data;
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id') id: string) {
     const result = await this.servicesService.remove(id);
     if (result.error) {
-      throw new Error(result.error.message);
+      throw new Error(result.error);
     }
     return result.data;
   }

@@ -4,6 +4,6 @@ export interface userData {
     name: string,
     email: string,
     password: string,
-    type_user: string,
-    phone: string,
+    tipoUsuario: string,
+    telefone: string,
 }

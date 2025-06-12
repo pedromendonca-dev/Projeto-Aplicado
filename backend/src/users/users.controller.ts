@@ -11,7 +11,7 @@ import {
 import { UsersService } from './users.service';
 import { Response } from 'express';
 
-@Controller('users')
+@Controller('usuarios')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -31,7 +31,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: any) {
     const result = await this.usersService.findOne(id);
     if (result.error) {
       throw new Error(result.error.message);
@@ -40,7 +40,7 @@ export class UsersController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() user: any) {
+  async update(@Param('id') id: any, @Body() user: any) {
     const result = await this.usersService.update(id, user);
     if (result.error) {
       throw new Error(result.error.message);
@@ -49,7 +49,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id') id: any) {
     const result = await this.usersService.remove(id);
     if (result.error) {
       throw new Error(result.error.message);
