@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { SupabaseService } from '../supabase/supabase.service';
-import { ConfigModule } from '@nestjs/config';
+import { FirebaseModule } from '../firebase/firebase.module';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [FirebaseModule],
   controllers: [UsersController],
-  providers: [UsersService, SupabaseService],
+  providers: [UsersService],
 })
 export class UsersModule {}
